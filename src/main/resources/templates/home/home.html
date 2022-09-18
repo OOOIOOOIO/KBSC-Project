@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>home</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/home/home.css}">
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet">          
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap}" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div>
+    
+    <!-- body -->
+     
+    <br>
+    <div class="container-fluid" style="text-align: right;"> <!--글씨 좀 작게 그리고 오른쪽 정렬-->
+    	<div th:if="${session.cuUserInfo == null}">
+	        <a class="etc-text shadow-sm" th:href="@{/login/main}" style="color:black;">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	    <a class="etc-text shadow-sm" th:href="@{/join/main}" style="color:black;">회원가입</a> 
+    	</div>
+    	<div th:unless="${session.cuUserInfo == null}">
+    		<a class="etc-text shadow-sm" th:href="@{/login/logout}" style="color:black;">로그아웃</a>
+    	</div>
+    </div> 
+    <br>
+    <br>
+    <div class="container-fluid">
+        <div class="card card-all-status shadow" >
+            <div class="card-header all-status" >전체 현황</div>
+            <div class="card-body">
+                <table style="width: 100%; height: 100%;">
+                    <tr>
+                        <td class="td-title">총 봉사 횟수</td><td class="td-value-1">[[${#numbers.formatInteger(volunteerTimes, 3, 'POINT')}]] 회</td>
+                        <td  class="td-title" >총 봉사 시간</td><td class="td-value-2">[[${#numbers.formatInteger(volunteerHours, 3, 'POINT')}]] 시간</td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">총 기부 횟수</td><td class="td-value-1">[[${#numbers.formatInteger(donationTimes, 3, 'POINT')}]] 번</td>
+                        <td  class="td-title" >총 기부 금액</td><td class="td-value-2">[[${#numbers.formatInteger(donationCash, 3, 'POINT')}]] 원</td>
+                    </tr>
+                    <tr>
+                        <td class="td-title" >총 봉사 포인트</td><td class="td-value-1">[[${#numbers.formatInteger(volunteerPoint, 3, 'POINT')}]] 포인트</td>
+                        <td class="td-title" >총 포인트 기부 금액</td><td class="td-value-2">[[${#numbers.formatInteger(donationPoint, 3, 'POINT')}]] 포인트</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="container-fluid " >
+        <div class="card card-my-status shadow" style=" margin: 0 auto">
+        	<div th:if="${session.cuUserInfo == null}">
+	            <div class="card-body my-status-user" >로그인 후 이용해 주세요</div>
+        	</div>
+        	<div th:unless="${session.cuUserInfo == null}">
+	            <div class="card-body my-status-user" >[[${session.cuUserInfo.name_kr}]] 님 환영합니다! </div>
+        	</div>
+            <div class="card-body my-status-wrap-button" >
+                <a th:href="@{/user/info}" class="btn btn-primary my-status-button shadow" >내 현황 보기</a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div style="overflow: hidden;">
+        <div class="container-fluid">
+            <div class="card card-vd-l">
+                <div class="card-body " style="text-align: center;  background-color: whitesmoke;" >
+                    <a href="#" th:href="@{/volunteerUser/list}" class="btn btn-primary vd-btn shadow"  style="padding: 25px;" >봉사하기</a>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="card card-vd-r" >
+                <div class="card-body " style="text-align: center; background-color: whitesmoke;" >
+                    <a href="#" th:href="@{/donationUser/list}" class="btn btn-primary vd-btn shadow"  style="padding: 25px;" >기부하기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- <div style="overflow: hidden;">
+        <div class="container-fluid">
+            <div class="card card-vd-l">
+                <div class="card-body " style="text-align: center;  background-color: whitesmoke;" >
+                    <a href="#" class="btn btn-primary vd-btn shadow"  style="padding: 25px;" >알림</a>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="card card-vd-r" >
+                <div class="card-body " style="text-align: center; background-color: whitesmoke;" >
+                    <a href="#" class="btn btn-primary vd-btn shadow"  style="padding: 25px;" >나눔후기</a>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <br>
+    <br>
+</body>
+</html>

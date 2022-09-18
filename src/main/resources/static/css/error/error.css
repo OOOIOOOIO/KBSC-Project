@@ -1,0 +1,64 @@
+a{
+    text-decoration: none;
+}
+a:visited { color:white; background-color: #ffce0b; }
+body{
+    background-color: whitesmoke;
+}
+
+.nav{
+    margin-top: 30px; 
+    height: 150px;
+    background-color: #ffce0b;
+    border-radius: 10px;
+    
+}
+.nav-body{
+    margin: 0 auto;
+    text-align: center; 
+    line-height: 120px;
+}
+.nav-text{
+    font-size: 50px;
+    color: black;
+    font-family: 'Single Day', cursive;
+    
+}
+.etc-text{
+    font-weight: bold;
+    color: black;
+    border: solid 1px whitesmoke;
+    padding: 10px;
+    font-family: 'Single Day', cursive;
+}
+
+.card-my-status{
+    width: 80%;
+    height:150px; 
+    border:1px solid whitesmoke;
+    border-radius: 30px;
+    font-weight: bold;
+    
+}
+
+.my-status-wrap-button{
+    margin: 0 auto; 
+    width: 80%;
+    height: 100%; 
+    text-align: center;
+    
+      
+}
+.my-status-button{
+    background-color: #ffce0b; color: black;
+    width: 90%; 
+    height: 100%;
+    font-size: 25px;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    padding-top: 15%;
+	
+    
+}
+

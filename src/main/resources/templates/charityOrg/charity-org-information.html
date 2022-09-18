@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>information</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/donation/donation-information.css}">
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet"> 
+        
+</head>
+<body>
+    
+
+    <!-- nav -->
+	<div th:replace="~{fragments/navChari :: nav}"></div> 
+    <br>
+    
+    <!-- 봉사 정보 -->
+    <div class="container">
+        <div class="card">
+            <div class="card-title" style="border-bottom: 1px solid gainsboro; font-size: 20px;"> [공고명] [[${donationInfo.c_title}]]</div>
+            <table class="table">
+                <tr>
+                    <td class="td-l">모집 기관</td>
+                    <td class="td-r" th:text="${donationInfo.org_name}">org_name</td>
+                </tr>
+                <tr>
+                    <td class="td-l">기부 분야</td>
+                    <td class="td-r" th:text="${donationInfo.c_field}">c_field</td>
+                </tr>
+                <tr>
+                    <td class="td-l">현재 기부 인원</td>
+                    <td class="td-r" >[[${#numbers.formatInteger(donationTimes, 3, 'POINT')}]]</td>
+                </tr>
+                <tr>
+                    <td class="td-l">현재 기부 액수</td>
+                    <td class="td-r" >[[${#numbers.formatInteger(donationCash, 3, 'POINT')}]]</td>
+                </tr>
+                <tr>
+                    <td class="td-l">현재 기부 포인트</td>
+                    <td class="td-r" >[[${#numbers.formatInteger(donationPoint, 3, 'POINT')}]]</td>
+                </tr>
+                <tr>
+                    <td class="td-l">첨부파일</td>
+                    <td class="td-r">
+                    	<a th:if="${fileInfo != null}" th:href="|/charityOrg/file/${c_board_num}|" th:text="${fileInfo.getOriginal_file_name()}"></a>
+                    </td>
+                    
+                </tr>
+            </table>
+            <div class="card-body">
+            	<textarea name="c_contents" style="resize: vertical; width: 100%; height: 500px;" >[[${donationInfo.c_contents}]] </textarea>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="card  list-wrapper">
+            <div class="list-group">
+                <p class="mb-1">담당자명 : [[${cOInfo.name_kr}]]</p>
+                <p class="mb-1">단체 전화번호 : [[${cOInfo.org_phone}]]</p>
+                <p class="mb-1">주소 : [[${cOInfo.addr}]]</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="move" style="text-align: center;">
+        <a href="#" th:href="@{/charityOrg/list}" class="btn btn-primary my-status-button shadow " >확인</a>
+    </div>
+    <br>
+    <br>
+    <br>
+    
+</body>
+</html>

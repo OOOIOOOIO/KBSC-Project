@@ -1,0 +1,93 @@
+a{
+    text-decoration: none;
+}
+a:visited { color:white; background-color: #ffce0b; }
+body{
+    background-color: whitesmoke;
+}
+
+.nav{
+	margin-top: 3%;
+    height: 120px;
+    background-color: #ffce0b;
+    border-radius: 10px;
+    
+}
+.nav-body{
+    margin: 0 auto;
+    text-align: center; 
+    line-height: 100px;
+}
+.nav-text{
+    font-size: 50px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    
+    
+}
+.login-text-l{
+    font-size: 150%;
+    color: black;
+    font-family: 'Single Day', cursive;
+    float: left; 
+    width: 25%
+}
+.login-text-r{
+    font-size: 150%;
+    color: black;
+    font-family: 'Single Day', cursive;
+    float: left; 
+    width: 25%
+}
+.row{
+    text-align: right;
+}
+.etc-text{
+    font-weight: bold;
+    color: black;
+    border: solid 1px whitesmoke;
+    padding: 10px;
+    font-family: 'Single Day', cursive;
+}
+th{
+    text-align: center;
+    width: 30%;
+    
+}
+table{
+    border:1px solid black
+}
+.my-button{
+    background-color: #6b6963; color: black;
+    width: 30%; 
+    height: 80%;
+    font-size: 100%;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    
+    
+}
+.login-btn{
+    background-color: #ffce0b; color: black;
+    width: 60%; 
+    height: 110%;
+    font-size: 25px;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    
+    
+}
+
+.login-input{
+    width: 60%; 
+    margin: 0 auto; 
+    float: right; 
+}
+.field-error{
+	color : red;
+	font-size: 15px;
+	font-family: 'Single Day', cursive;
+	text-align: center; 
+}

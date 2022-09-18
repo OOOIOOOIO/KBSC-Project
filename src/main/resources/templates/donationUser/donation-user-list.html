@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>list</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/donation/donation-list.css}" >
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet">  
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap}" rel="stylesheet">
+</head>
+<body>
+
+    <!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div>
+    <br>
+    <!-- body -->
+
+    <!-- 검색 부분 -->
+    <div class="container">
+        <div class="card" style="overflow: hidden;">
+            <div>
+                <div style="float: left; width: 20%;">
+                    <select class="form-select" name="searchCriteria" required style="width: 100%;">
+                        <option value="c_title" >공고명</option>
+                        <option value="org_name">모집기관</option>
+                        <option value="c_field_os">해외후원+공고명</option>
+                        <option value="c_field_dm">국내후원+공고명</option>
+                        <option value="c_field_co">코로나19 긴급구호+공고명</option>
+                        <option value="c_field_af">아프가니스탄 긴급구호+공고명</option>
+                        <option value="c_field_sr">시리아 긴급구호+공고명</option>
+                        <option value="c_field_ea">동아프리카 긴급구호+공고명</option>
+                    </select>
+                </div>
+                <div style="float: left; width: 60%;">
+                    <input class="form-control" type="text" name="searchWord" style="width: 100%;" placeholder="검색어를 입력해주세요">
+                </div>
+                <div style="float: left; width: 20%;">
+                    <input class="form-control" type="button" value="검색" onclick="showSearchList()" style="width: 100%; background-color: gainsboro;" >
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <!-- 봉사 목록 -->
+    <div class="container">
+        <div class="card list-wrapper">    
+            <!-- 목록을 다 받아와야한다, if, for문을 통해 가져옴   -->
+            
+            <div class="list-group">
+	            <div class="alt list">
+	                <div th:if="${ donationList != null &&  donationList.size() > 0}" >
+	                    <a th:each="donationList : ${donationList}" href="#" th:href="@{/donationUser/information/{c_board_num}(c_board_num=${donationList.c_board_num})}" class="list-group-item list-group-item-action">
+	                        <div class="d-flex w-100 justify-content-between" style="margin-bottom: 5px">
+	                            <h5 class="mb-1" th:text="${donationList.c_title}">공고이름</h5>
+	                            <small class="text-muted" th:text="${donationList.c_field}">기부 분야</small>
+	                        </div>
+	                       	<small class="text-muted">현재 총 기부 인원 : [[${#numbers.formatInteger(donationList.donationTimes, 3, 'POINT')}]] 명</small><br>
+	                       	<small class="text-muted">현재 총 기부 금액 : [[${#numbers.formatInteger(donationList.donationCash, 3, 'POINT')}]] 원</small><br>
+	                       	<small class="text-muted">현재 총 기부 포인트 : [[${#numbers.formatInteger(donationList.donationPoint, 3, 'POINT')}]] point</small><br>
+	                    </a>
+	                </div>
+	                <div th:unless="${ donationList != null &&  donationList.size() > 0}" >
+	                    <span class="list-group-item" style="text-align: center;">기부 모집 공고가 없습니다.</span>
+	                </div>
+	            </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="D:/polit/kbsc/front-workspace/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+	<script type="text/javascript" th:inline="javascript">
+		
+		function showSearchList(){
+			let alt = $(".alt");
+			let searchCriteria = $("select[name='searchCriteria']").val();
+			let searchWord = $("input[name='searchWord']").val();
+		
+			searchInfo = {"searchCriteria" : searchCriteria,
+						"searchWord" : searchWord		
+			};
+			
+			$.ajax(
+				{
+					type:"POST",
+					url:"/donationUser/search",
+					data:JSON.stringify(searchInfo),
+					contentType:"application/json; charset=utf-8",
+					success:function(result, status, xhr){
+						console.log("success ajax");
+						console.log("data"+searchInfo.toString());
+						console.log(result);
+						// dom 만들기
+						
+						let errStr = ""
+						
+						errStr +=	'<div class="alt list">';
+						errStr +=		'<span class="list-group-item" style="text-align: center;">현재 기부 공고가 없습니다.</span>';
+						errStr +=	'<div>';		
+						if(result == null || result.length == 0){
+							alt.html(errStr);
+							return;
+						}
+						
+						let str = "";
+						
+						str += '<div class="alt list">';
+						
+						for(let i = 0, len = result.length; i < len; i++){
+							
+							str += '<a href="/donationUser/information/'+result[i].c_board_num+'" class="list-group-item list-group-item-action">';
+							str +=     '<div class="d-flex w-100 justify-content-between" style="margin-bottom: 5px">';
+							str +=         '<h5 class="mb-1">'+result[i].c_title+'</h5>';
+							str += 			'<small class="text-muted">'+result[i].c_field+'</small>';
+							str += 		'</div>';
+							str += 		'<small class="text-muted">현재 총 기부 인원 : '+result[i].donationTimes+' 명</small><br>';
+							str += 		'<small class="text-muted">현재 총 기부 금액 : '+result[i].donationCash+' 원</small><br>';
+							str += 		'<small class="text-muted">현재 총 기부 포인트 : '+result[i].donationPoint+' point</small><br>';
+							str += '</a>';
+
+
+						}
+						
+						str += '</div>';
+						
+						alt.replaceWith(str);
+						
+						
+					},
+					error:function(e, status, xhr){
+						console.log("fail ajax");
+					}
+					
+				}		
+			
+			)
+		}
+	</script>
+</body>
+</html>

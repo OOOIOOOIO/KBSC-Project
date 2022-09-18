@@ -1,0 +1,159 @@
+a{
+    text-decoration: none;
+}
+a:visited { color:white; background-color: #ffce0b; }
+body{
+    background-color: whitesmoke;
+}
+
+.nav{
+    margin-top: 3%;	
+    height: 120px;
+    background-color: #ffce0b;
+    border-radius: 10px;
+    
+}
+.nav-body{
+    margin: 0 auto;
+    text-align: center; 
+    line-height: 100px;
+}
+.nav-text{
+    font-size: 50px;
+    color: black;
+    font-family: 'Single Day', cursive;
+    
+}
+.etc-text{
+    font-weight: bold;
+    color: black;
+    border: solid 1px whitesmoke;
+    padding: 10px;
+    font-family: 'Single Day', cursive;
+}
+.td-title{
+    text-align: center;
+}
+.td-value-1{
+    text-align: right;
+}
+.td-value-2{
+    text-align: center;
+}
+
+.card-all-status{
+    width: 90%;
+    height:180px; 
+    border:1px solid white;
+    margin: 0 auto;
+    border-radius: 30px;
+    font-weight: bold;
+    font-family: 'Single Day', cursive;
+    
+}
+.all-status{
+    text-align: center; 
+    border-bottom: solid 1px gray ;
+    font-size: 25px;
+
+    
+}
+.card-my-status{
+    width: 80%;
+    height:75px; 
+    border:1px solid whitesmoke;
+    border-radius: 30px;
+    font-weight: bold;
+    
+}
+.my-status-user{
+    text-align: center; 
+   
+    font-size: 25px;
+    font-family: 'Single Day', cursive;
+}
+.my-status-wrap-button{
+    margin: 0 auto; 
+    width: 80%;
+    height: 100%; 
+    text-align: center;
+}
+.my-status-button{
+    background-color: #ffce0b; color: black;
+    width: 60%; 
+    height: 100%;
+    font-size: 25px;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    
+    
+}
+.card-vd-l{
+    
+    height:150px; 
+    border:1px solid whitesmoke;
+    width: 48%;
+    float: left; 
+    margin-left: 10px;
+    border-radius: 30px;
+}
+.card-vd-r{
+    
+    height:150px; 
+    border:1px solid whitesmoke;
+    width: 48%;
+    float: right; 
+    margin-right: 10px;
+    border-radius: 30px;
+    
+
+}
+.vd-btn{
+    display: inline-block; 
+    width: 90%; 
+    height: 100%; 
+    font-size: 27px;
+    border-radius: 20px;
+    background-color: #ffce0b;
+    font-family: 'Single Day', cursive;
+    
+}
+.boards{
+
+    width: 100%;
+    height: 120px;
+    text-align: center;
+}
+.board-l{
+    width: 50%; 
+    height : 100%; 
+    float: left; 
+    background-color: whitesmoke;
+    border-radius: 30px;
+
+}
+.board-r{
+    width: 50%; 
+    height : 100%; 
+    float: right; 
+    background-color: whitesmoke;
+    border-radius: 30px;
+   
+    
+
+    
+}
+.boards-btn{
+    display: inline-block; 
+    width: 70%; 
+    height: 100%; 
+    font-size: 40px;
+    border-radius: 20px;
+    background-color: #ffce0b;
+    font-family: 'Single Day', cursive;
+    
+   
+}
+
+

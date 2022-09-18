@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>history</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/userInfo/user-donation-history.css}">
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet">
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap}" rel="stylesheet"> 
+    
+</head>
+<body>
+
+    <!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div>
+    <br>
+    <!-- body -->
+
+    <!-- 검색 부분 -->
+<!--     <div class="container">
+        
+        <div class="card" style="overflow: hidden;">
+            <form>
+                <div style="float: left; width: 20%;">
+                    <select class="form-select" name="key" required style="width: 100%;">
+                        <option value="v_title" >공고명</option>
+                        <option value="org_name">모집기관</option>
+                    </select>
+                </div>
+                <div style="float: left; width: 60%;">
+                    <input class="form-control" type="text" style="width: 100%;" placeholder="검색어를 입력해주세요">
+                </div>
+                <div style="float: left; width: 20%;">
+                    <input disabled class="form-control" type="submit" value="검색" style="width: 100%; background-color: gainsboro;" >
+                </div>
+            </form>
+        </div>
+    </div>
+    <br> -->
+
+    <!-- 봉사 목록 -->
+    <div class="container">
+        <div class="card list-wrapper">    
+            <!-- 목록을 다 받아와야한다, if, for문을 통해 가져옴   -->
+            
+            <div class="list-group">
+                <div th:if="${ completeInfo != null &&  completeInfo.size() > 0}">
+                    <a th:each="completeInfo : ${completeInfo}" href="#" th:href="@{/donationUser/information/{c_board_num}(c_board_num=${completeInfo.c_board_num})}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1" th:text="${completeInfo.c_title}">공고이름</h5>
+                            <small class="text-muted" th:text="${completeInfo.org_name}">단체 이름</small>
+                        </div>
+                        <p class="mb-1" >기부 일시 : [[${completeInfo.donation_date}]]</p>
+                        <p class="mb-1" th:if="${completeInfo.donation_type.toString().equals('cash')}">기부 금액 : [[${completeInfo.amount_of_money}]] 원</p>
+                        <p class="mb-1" th:unless="${completeInfo.donation_type.toString().equals('cash')}">기부 금액 : [[${completeInfo.amount_of_point}]] point</p>
+                    </a>
+                </div>
+                <div th:unless="${ completeInfo != null &&  completeInfo.size() > 0}">
+                    <span class="list-group-item" style="text-align: center;">기부 내역이 없습니다.</span>
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+	
+	<br>
+	<br>
+	<br>
+    <div class="" style="text-align: center;">
+        <a th:href="@{/user/info}" class="btn btn-primary home-button shadow ">내 현황으로 돌아가기</a>
+    </div>
+    <br>
+    
+</body>
+</html>

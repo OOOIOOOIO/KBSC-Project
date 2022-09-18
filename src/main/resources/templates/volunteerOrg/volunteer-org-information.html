@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>information</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/volunteer/volunteer-information.css}" >
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet">
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap}" rel="stylesheet">          
+    
+</head>   
+</head>
+<body>
+    
+    <!-- nav -->
+	<div th:replace="~{fragments/navVolun :: nav}"></div>
+    
+    <br>
+    
+    <!-- 봉사 정보 -->
+    <div class="container">
+        <div class="card">
+            <div class="card-title" style="border-bottom: 1px solid gainsboro; font-size: 20px;"> [공고명] [[${vBInfo.v_title}]]</div>
+            <table class="table">
+                <tr>
+                    <td class="td-l">모집 기관</td>
+                    <td class="td-r" th:text="${vBInfo.org_name}">org_name</td>
+                </tr>
+                <tr>
+                    <td class="td-l">봉사 기간</td>
+                    <td class="td-r">[[${vBInfo.v_start_date}]] ~ [[${vBInfo.v_end_date}]]</td>
+                </tr>
+                <tr>
+                    <td class="td-l">모집 기간</td>
+                    <td class="td-r">[[${vBInfo.r_start_date}]] ~ [[${vBInfo.r_end_date}]]</td>
+                </tr>
+                <tr>
+                    <td class="td-l">봉사 장소</td>
+                    <td class="td-r" th:text="${vBInfo.v_place}">v_place</td>
+                </tr>
+                <tr>
+                    <td class="td-l">봉사 시간</td>
+                    <td class="td-r" th:text="${vBInfo.v_time}">v_time</td>
+                </tr>
+                <tr>
+                    <td class="td-l">모집 인원</td>
+                    <td class="td-r" th:text="${vBInfo.r_num}">r_num</td>
+                </tr>
+                <tr>
+                <tr>
+                    <td class="td-l">봉사 분야</td>
+                    <td class="td-r" th:text="${vBInfo.v_field}">v_field</td>
+                </tr>
+                <tr>
+                    <td class="td-l">봉사 대상</td>
+                    <td class="td-r" th:text="${vBInfo.v_target}">v_target</td>
+                </tr>
+                <tr>
+                    <td class="td-l">봉사자 유형</td>
+                    <td class="td-r" th:text="${vBInfo.v_type}">v_type</td>
+                </tr>
+                <tr>
+                    <td class="td-l">활동구분</td>
+                    <td class="td-r" th:text="${vBInfo.act_type}">act_type</td>
+                </tr>
+                <tr>
+                    <td class="td-l">첨부파일</td>
+                    <td class="td-r">
+                       	<a th:if="${fileInfo != null}" th:href="|/volunteerOrg/file/${v_board_num}|" th:text="${fileInfo.getOriginal_file_name()}"></a>
+                    </td>
+                    
+                </tr>
+            </table>
+            <div class="card-body v-contents">
+            	<textarea name="v_contents" style="border: 1px solid gainsboro; resize: vertical; width: 100%; height: 500px;">[[${vBInfo.v_contents}]]</textarea>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="card  list-wrapper">
+            <div class="list-group">
+            <table class="table">
+                <tr>
+                    <td class="td-l">봉사단체 담당자명</td>
+                    <td class="td-r">[[${vOInfo.name_kr}]]</td>
+                </tr>            
+                <tr>
+                    <td class="td-l">봉사단체 전화번호</td>
+                    <td class="td-r">[[${vOInfo.org_phone}]]</td>
+                </tr>            
+                <tr>
+                    <td class="td-l">봉사단체 주소</td>
+                    <td class="td-r">[[${vOInfo.addr}]]</td>
+                </tr>            
+            </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="move" style="text-align: center;">
+        <a th:href="@{/volunteerOrg/list}" class="btn btn-primary my-status-button shadow ">확인</a>
+    </div>
+    <br>
+    
+</body>
+</html>

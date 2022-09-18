@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>regist</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/volunteer/volunteer-information.css}">
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet">          
+    
+</head>   
+</head>
+<body>
+    
+    <!-- nav -->
+	<div th:replace="~{fragments/navVolun :: nav}"></div>
+    
+    <br>
+    
+    <!-- 봉사 정보 -->
+    <form name="registForm" action="" th:action="@{/volunteerOrg/regist}" method="post" enctype="multipart/form-data"> 
+		<div class="container">
+		    <div class="card">
+		        <div class="card-title" style="border-bottom: 1px solid gainsboro; font-size: 20px;">	
+		        	<input type="text" name="v_title" placeholder="봉사 공고 제목" style="width: 100%">
+		        </div>
+		        <table class="table">
+		            <tr>
+		                <td class="td-l">모집 기관</td>
+		                <td class="td-r" >	
+		                	<input disabled type="text" name="org_name" th:value="${vOInfo.org_name}">
+		                </td>
+		            </tr>
+		            <tr> 
+		                <td class="td-l">봉사 기간</td>
+		                <td class="td-r">
+		                	시작일 <input type="date" min="0" name="v_start_date" placeholder="20220901"><br>
+		                	종료일 <input type="date" min="0" name="v_end_date" placeholder="20220910">
+		                </td>
+		            </tr>
+		            <tr>
+		                <td class="td-l">모집 기간</td>
+		                <td class="td-r">
+		                	시작일 <input type="date" min="0" name="r_start_date" placeholder="20220801"><br>
+		                	종료일 <input type="date" min="0" name="r_end_date" placeholder="20220820">
+		                </td>
+		            </tr>
+		            <tr>
+		                <td class="td-l">봉사 장소</td>
+		                <td class="td-r" >
+		                	<input type="text" name="v_place" placeholder="성호성호">
+		                </td>
+		            </tr>
+		            <tr>
+		                <td class="td-l">봉사 시간</td>
+		                <td class="td-r" >
+				<input type="number" name="v_time" min="0" placeholder="3시간이면 '3'기입">
+			</td>
+		            </tr>
+		            <tr>
+		                <td class="td-l">모집 인원</td>
+		                <td class="td-r" >
+				<input type="number" name="r_num" min="0" placeholder="10명 모집일 경우 '10'기입">
+			</td>
+		            </tr>
+		            <tr>
+		            <tr>
+		                <td class="td-l">봉사 분야</td>
+		                <td class="td-r" >	
+		                	<!-- <input type="text" name="v_field" placeholder="봉사 분야"> -->
+		                    <select class="form-select" name="v_field" required style="width: 100%;">
+		                        <option value="전체" >전체</option>
+		                        <option value="생활편의지원">생활편의지원</option>
+		                        <option value="주거환경">주거환경</option>
+		                        <option value="상담">상담</option>
+		                        <option value="교육">교육</option>
+		                        <option value="보건의료">보건의료</option>
+		                        <option value="농어촌 봉사">농어촌 봉사</option>
+		                        <option value="문화행사">문화행사</option>
+		                        <option value="환경보호">환경보호</option>
+		                        <option value="행정보조">행정보조</option>
+		                        <option value="안전예방">안전예방</option>
+		                        <option value="공익인권">공익인권</option>
+		                        <option value="재해재난">재해재난</option>
+		                        <option value="국제협력+해외봉사">국제협력 해외봉사</option>
+		                        <option value="멘토링">멘토링</option>
+		                        <option value="자원봉사교육">자원봉사교육</option>
+		                        <option value="국제행사">국제행사</option>
+		                        <option value="기타">기타</option>
+		                    </select>			                	
+		                </td>
+		            </tr>
+		            <tr>
+		                <td class="td-l">봉사 대상</td>
+		                <td class="td-r" >	
+		                    <select class="form-select" name="v_target" required style="width: 100%;">
+		                        <option value="전체" >전체</option>
+		                        <option value="아동+청소년">아동+청소년</option>
+		                        <option value="장애인">장애인</option>
+		                        <option value="노인">노인</option>
+		                        <option value="여성">여성</option>
+		                        <option value="고향봉사">고향봉사</option>
+		                        <option value="다문화가정">다문화가정</option>
+		                        <option value="쪽방촌">쪽방촌</option>
+		                        <option value="환경">환경</option>
+		                        <option value="사회적기업">사회적기업</option>
+		                        <option value="기타">기타</option>
+		                    </select>			                	
+		                </td>
+		            </tr>
+		            <tr>
+		                <td class="td-l">봉사자 유형</td>
+		                <td class="td-r" >	
+		                	<!-- <input type="text" name="v_type" placeholder="봉사자 유형"> -->
+		                    <select class="form-select" name="v_type" required style="width: 100%;">
+		                        <option value="전체" >전체</option>
+		                        <option value="청소년">청소년</option>
+		                        <option value="성인">성인</option>
+		                    </select>			                	
+		                </td>
+		            </tr>
+		            <tr>
+		                <td class="td-l">활동구분</td>
+		                <td class="td-r" >	
+		                	<!-- <input type="text" name="act_type" placeholder="활동구분"> -->
+		                    <select class="form-select" name="act_type" required style="width: 100%;">
+		                        <option value="전체" >전체</option>
+		                        <option value="온라인">온라인</option>
+		                        <option value="오프라인">오프라인</option>
+		                        <option value="온라인+오프라인">온라인+오프라인</option>
+		                    </select>		                	
+		                </td>
+		            </tr>
+		            <tr>
+		                <td class="td-l">첨부파일</td>
+		                <td class="td-r"><input type="file" name="file"></td>
+		            </tr>
+		        </table>
+		        <div class="card-body">
+					<textarea name="v_contents" style="resize: vertical; width: 100%; height: 500px;" placeholder="봉사 내용을 입력해주세요"></textarea>
+		        </div>
+		    </div>
+		</div>
+		<br>
+		<div class="container">
+		    <div class="card  list-wrapper">
+            <table class="table" style="border: 1px solid gainsboro;">
+                <tr>
+                    <td class="td-l" style="width: 40%;">봉사단체 담당자명</td>
+                    <td class="td-r">[[${vOInfo.name_kr}]]</td>
+                </tr>            
+                <tr>
+                    <td class="td-l">봉사단체 전화번호</td>
+                    <td class="td-r">[[${vOInfo.org_phone}]]</td>
+                </tr>            
+                <tr>
+                    <td class="td-l">봉사단체 주소</td>
+                    <td class="td-r">[[${vOInfo.addr}]]</td>
+                </tr>            
+            </table>
+		    </div>
+		</div>
+		<br>
+		<div class="move" style="text-align: center;">
+		    <input type="submit" class="btn btn-primary my-status-button shadow " value="봉사 공고 올리기">
+		</div>
+    </form>
+    <br>
+</body>
+</html>

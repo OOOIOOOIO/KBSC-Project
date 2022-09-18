@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.mapper.UserInfoMapper">
+
+	<select id="getVolunteerApplyHistory" resultType="com.sh.domain.VolunteerUserApplyDTO">
+		select * from vu_apply where u_sys_id=#{u_sys_id}
+
+	</select>	
+	<select id="getVolunteerCompleteHistory" resultType="com.sh.domain.VolunteerUserCompleteDTO">
+		select * from vu_com where u_sys_id=#{u_sys_id}		
+	</select>	
+
+	<select id="getDonationCompleteHistory" resultType="com.sh.webDomain.MyDonationInfoDTO">
+	
+		select * from cu_donation_info where u_sys_id=#{u_sys_id}
+	</select>
+		
+
+	<select id="getDonationAmountCash" resultType="Long">
+		select sum(amount_of_money) 
+		from donation_payment_cash_user
+		where u_sys_id=#{u_sys_id}
+	</select>
+		
+	<select id="getDonationAmountPoint" resultType="Integer">
+		select sum(amount_of_point) 
+		from donation_payment_point_user
+		where u_sys_id=#{u_sys_id}
+	</select>	
+
+	<select id="getMyVolunteerPoint" resultType="Integer">
+		select sum(v_point) 
+		from v_certificate_point_user
+		where u_sys_id=#{u_sys_id}
+	</select>
+	
+	<select id="getMyDonationPoint" resultType="Integer">
+		select sum(AMOUNT_OF_POINT) 
+		from donation_payment_point_user
+		where u_sys_id=#{u_sys_id}
+	</select>
+	
+	
+	<select id="getDonationCash" resultType="Integer">
+		select amount_of_money 
+		from donation_payment_cash_user
+		where CU_NUM = #{cu_num} and U_SYS_ID = #{u_sys_id}
+	</select>
+	
+	<select id="getDonationPoint" resultType="Integer">
+		select amount_of_point 
+		from donation_payment_point_user
+		where CU_NUM = #{cu_num} and U_SYS_ID = #{u_sys_id}
+	</select>
+</mapper>

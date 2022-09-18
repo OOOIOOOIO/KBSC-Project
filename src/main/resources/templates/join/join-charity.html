@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>join</title>
+
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link th:href="@{/css/join/join-charity.css}" rel="stylesheet" >
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet"> 
+    
+    <style>
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div>
+	 
+ 
+    <br>
+    <br>
+    <br>
+    <!-- body -->
+
+    <div class="container-fluid" >
+        <form name="joinForm" action="#" th:object="${charityUser}" th:action="@{/join/complete-charity}" method="post">
+	        <div th:if="${#fields.hasGlobalErrors()}">
+	            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+	        </div>            
+            <table class="table table-hover" style="margin : 0 auto;" >
+				<tr>
+                    <th><label for="user_id" class="col-sm-2 col-form-label" >아이디</label></th>
+                    <td><input  type="text" class="form-control" name="user_id" th:field="*{user_id}" placeholder="4~12자 이상, 영문, 숫자를 포함해야 합니다." style="width: 100%;"></td>
+                    <td class="field-error" th:errors="*{user_id}" >user_id 오류</td>
+                </tr>
+                <tr>
+                    <th><label for="user_pw" class="col-sm-2 col-form-label" >비밀번호</label></th>
+                    <td><input  type="text" class="form-control" name="user_pw" th:field="*{user_pw}"  placeholder="8자 이상, 숫자, 대문자, 소문자, 특수문자를 모두 포함해야 합니다."></td>
+                    <td class="field-error" th:errors="*{user_pw}">user_pw 오류</td>
+                </tr>
+                <tr>
+                    <th><label for="name_kr" class="col-sm-2 col-form-label">한국 이름</label></th>
+                    <td><input  type="text" class="form-control" name="name_kr" th:field="*{name_kr}" placeholder="홍길동"></td>
+                    <td class="field-error" th:errors="*{name_kr}">name_kr 오류</td>
+                </tr>
+                <tr>
+                    <th><label for="name_en" class="col-sm-2 col-form-label">영문 이름</label></th>
+                    <td><input  type="text" class="form-control" name="name_en" th:field="*{name_en}" placeholder="GilDong Hong"></td>
+                	<td class="field-error" th:errors="*{name_en}">name_en 오류</td>
+                </tr>
+                <tr>
+                    <th><label for="user_birth" class="col-sm-2 col-form-label">생년월일</label></th>
+                    <td><input  type="text" class="form-control" name="user_birth" th:field="*{user_birth}" placeholder="19980111"></td>
+                	<td class="field-error" th:errors="*{user_birth}">user_birth 오류</td>
+                </tr>
+                <tr>
+                	<th><label for="user_email" class="col-sm-2 col-form-label">이메일</label></th>
+                	<td><input  type="email" class="form-control" name="user_email" th:field="*{user_email}" placeholder="sample@sample.com"></td>
+               		<td class="field-error" th:errors="*{user_email}">user_email 오류</td>
+               	</tr>
+                <tr>
+                    <th style="line-height: 50%;"><label for="user_phone" class="col-sm-2 col-form-label">핸드폰 번호</label></th>
+                    <td style="text-align: right;">
+                        <input   type="text" class="form-control" name="user_phone" th:field="*{user_phone}" placeholder="01012345678" >
+                        <!-- <input type="button" class="btn btn-primary my-button" onclick="check_phone()" value="인증하기"> -->
+                    </td>
+                	<td class="field-error" th:errors="*{user_phone}">user_phone 오류</td>
+                </tr>
+                <tr class="zipcode_area">
+                    <th>우편번호</th>
+                    <td style="text-align: right;">
+                        <input readonly type="text" class="form-control " name="zipcode"  id="sample6_postcode" placeholder="우편번호"  >
+                        <input  type="button" class="btn btn-primary my-button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" >
+                    </td>
+             		<td class="field-error" th:errors="*{zipcode}">zipcode 오류</td>
+                </tr>
+                <tr class="addr_area">
+                    <th>주소</th>
+                    <td><input readonly class="form-control" name="addr" type="text" id="sample6_address" placeholder="주소"></td>
+                	<td class="field-error" th:errors="*{addr}">addr 오류</td>
+                </tr>
+                <tr>
+                    <th>상세주소</th>
+                    <td><input class="form-control" name="addr_detail" type="text" id="sample6_detailAddress" placeholder="상세주소"></td>
+                	<td class="field-error" th:errors="*{addr_detail}">addr_detail 오류</td>
+                </tr>
+                <tr>
+                    <th>참고항목</th>
+                    <td><input class="form-control" name="addr_etc" type="text" id="sample6_extraAddress" placeholder="참고항목"></td>
+                </tr>                    
+                <tr>
+                    <th><label for="org_name" class="col-sm-2 col-form-label">기부 단체 이름</label></th>
+                    <td>
+                        <input type="text" class="form-control"  name="org_name" th:field="*{org_name}" placeholder="성호봉사단체">
+                        <td class="field-error" th:errors="*{org_name}">org_name 오류</td>
+                    </td>
+                </tr>	
+                <tr>
+                    <th><label for="org_phone" class="col-sm-2 col-form-label">기부 단체 전화번호</label></th>
+                    <td>
+                        <input type="text" class="form-control" name="org_phone" th:field="*{org_phone}" placeholder="0321234567">
+                        <td class="field-error" th:errors="*{org_phone}">org_phone 오류</td>
+                    </td>
+                </tr>	
+                <tr>
+                    <th><label for="business_num" class="col-sm-2 col-form-label">사업자 번호(기관 번호)</label></th>
+                    <td>
+                        <input type="text" class="form-control" name="business_num" th:field="*{business_num}" placeholder="012-34-56789">
+                        <td class="field-error" th:errors="*{business_num}">business_num 오류</td>
+                    </td>
+                </tr>	
+            </table>
+            <br>
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-primary join-button" style="width: 50%;">가입하기</button> <!-- input 으로 바꾸기?-->
+            </div>
+        </form>
+        <br>
+        <br>
+
+    </div>
+        
+	<script type="text/javascript" src="D:/polit/kbsc/front-workspace/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+	<script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+	<script type="text/javascript" src="D:/polit/kbsc/front-workspace/js/user_join.js" th:src="@{/js/user_join.js}"></script>
+</body>
+
+<!-- 주소 js 따오기 -->
+
+</html>

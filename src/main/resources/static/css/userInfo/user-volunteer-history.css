@@ -1,0 +1,44 @@
+a{
+    text-decoration: none;
+    /* color: black; */
+}
+.nav{
+	margin-top: 3%;
+    height: 120px;
+    background-color: #ffce0b;
+    border-radius: 10px;
+    
+}
+.nav-body{
+    margin: 0 auto;
+    text-align: center; 
+    line-height: 100px;
+}
+.nav-text{  
+    font-size: 48px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    
+}
+.list-wrapper{
+    width: 100%;
+    /* text-align: center; */
+    margin: 0 auto;
+}
+td, th{
+    text-align: center !important;
+    vertical-align: middle !important;
+    font-family: 'Nanum Gothic Coding', monospace;
+}
+.home-button{
+    background-color: #ffce0b; color: black;
+    width: 70%; 
+    height: 100%;
+    font-size: 25px;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    padding: 10px;
+    
+    
+}

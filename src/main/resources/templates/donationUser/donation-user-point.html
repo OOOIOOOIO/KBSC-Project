@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>payment</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/donation/donation-point.css}" >
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet"> 
+        
+
+</head>
+<body>
+    
+    <!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div> 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- 체크박스 같은 name으로 넘길 때 컨트롤러에서 list로 받기 -->
+    <div class="container">
+        <div class="card-wrapper" >
+            <form name="pointForm" action="" th:action="@{/donationUser/complete-point/{c_board_num}(c_board_num=${c_board_num})}" method="post">
+                <div class="card card-money shadow">
+                    <div class="card-title"> 기부 포인트</div>
+                    <table class="table">
+                        <tr>
+                            <td style="width: 70%;  text-align: right;">
+                            	<input type="number" name="amount_of_point" style="width: 90%; text-align: center;" placeholder="0" >
+					            <p class="field-error" th:if="${pointFail != null}" style="font-size: 20px; font-family: 'Single Day'; color: red;" th:text="#{pointFail}">포인트 오류 메시지</p>
+					            <p class="field-error" th:if="${dbFail != null}" style="font-size: 20px; font-family: 'Single Day'; color: red;" th:text="#{dbFail}">db 오류 메시지</p>
+                            </td>
+                            <td style="width: 30%; text-align: center; font-family: 'Single Day', cursive; font-size: 20px;">point(포인트)</td>
+                        </tr>
+                    </table>
+                    <div class="card-text"> 내 잔여 포인트 : [[${myPoint}]] point!</div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="move" style="text-align: center;">
+                    <input type="submit" class="btn btn-primary my-status-button shadow " value="기부하기" >
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+</body>
+
+</html>

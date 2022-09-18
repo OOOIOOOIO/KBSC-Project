@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.mapper.VolunteerUserMapper">
+
+	<select id="getVolunteerBoardList" resultType="com.sh.domain.VolunteerInfoDTO">
+		select * from v_board
+	</select>
+	
+	<select id="readVolunteerBoardInfo" resultType="com.sh.domain.VolunteerInfoDTO">
+		select * from v_board where v_board_num=#{v_board_num}
+	</select>
+	
+	<select id="getVolunteerOrgInfo" resultType="com.sh.domain.VolunteerOrgDTO">
+		select * 
+		from volunteer_org_info 
+		where V_SYS_ID = (select v_sys_id from v_board where v_board_num=#{v_board_num})
+	</select>
+	
+	<select id="getApplyVolunteerNum" resultType="_int">
+		select count(*) from vu_apply where v_board_num=#{v_board_num} and v_date=#{v_date}
+	</select>
+	
+	<insert id="saveApplyedVolunteerInfoUser" parameterType="com.sh.domain.VolunteerUserApplyDTO">
+		INSERT INTO kbsc.vu_apply
+		(V_TITLE, APPLY_DATE, V_DATE, V_FIELD, V_PLACE, V_TIME, ORG_NAME, V_BOARD_NUM, V_SYS_ID, U_SYS_ID)
+		VALUES(#{v_title}, curtime(), #{v_date}, #{v_field}, #{v_place}, #{v_time}, #{org_name}, #{v_board_num}, #{v_sys_id}, #{u_sys_id})
+		
+	</insert>
+	
+	<insert id="saveApplyedVolunteerInfoOrg" parameterType="com.sh.domain.VolunteerOrgApplyDTO">
+		INSERT INTO kbsc.vo_apply
+		(V_TITLE, APPLY_DATE, V_DATE, V_FIELD, V_PLACE, V_TIME, ORG_NAME, V_BOARD_NUM, V_SYS_ID, U_SYS_ID)
+		VALUES(#{v_title}, curtime(), #{v_date}, #{v_field}, #{v_place}, #{v_time}, #{org_name}, #{v_board_num}, #{v_sys_id}, #{u_sys_id})
+		
+	</insert>
+	
+	<select id="getVolunteerBoardApplyInfoUser" parameterType="_int" resultType="com.sh.domain.VolunteerUserApplyDTO">
+		SELECT V_TITLE, V_FIELD, V_PLACE, V_TIME, ORG_NAME, V_SYS_ID
+		FROM kbsc.v_board
+		where v_board_num=#{v_board_num}
+		
+	</select>
+	<select id="getVolunteerBoardApplyInfoOrg" parameterType="_int" resultType="com.sh.domain.VolunteerOrgApplyDTO">
+		SELECT V_TITLE, V_FIELD, V_PLACE, V_TIME, ORG_NAME, V_SYS_ID
+		FROM kbsc.v_board
+		where v_board_num=#{v_board_num}
+		
+	</select>
+	
+	<select id="getVolunteerBoardCompleteInfoOrg" resultType="com.sh.domain.VolunteerOrgCompleteDTO">
+		SELECT VO_APPLY_NUM, V_TITLE, V_DATE, V_FIELD, V_PLACE, V_TIME, ORG_NAME, V_BOARD_NUM, V_SYS_ID, U_SYS_ID
+		FROM kbsc.vo_apply
+		WHERE v_board_num=#{v_board_num} and u_sys_id=#{u_sys_id}
+
+		
+	</select>
+	
+	<select id="getVolunteerBoardCompleteInfoUser" resultType="com.sh.domain.VolunteerUserCompleteDTO">
+		SELECT VU_APPLY_NUM, V_TITLE, V_DATE, V_FIELD, V_PLACE, V_TIME, ORG_NAME, V_BOARD_NUM, V_SYS_ID, U_SYS_ID
+		FROM kbsc.vu_apply
+		WHERE v_board_num=#{v_board_num} and u_sys_id=#{u_sys_id}
+
+		
+	</select>
+
+	<insert id="saveCompleteVolunteerInfoUser" parameterType="com.sh.domain.VolunteerUserCompleteDTO">
+		INSERT INTO kbsc.vu_com
+		(V_TITLE, APPLY_DATE, V_DATE, V_FIELD, V_PLACE, V_TIME, ORG_NAME, V_BOARD_NUM, V_SYS_ID, U_SYS_ID, VU_APPLY_NUM)
+		VALUES(#{v_title}, curtime(), #{v_date}, #{v_field}, #{v_place}, #{v_time}, #{org_name}, #{v_board_num}, #{v_sys_id}, #{u_sys_id}, #{vu_apply_num})
+
+	</insert>
+
+	<insert id="saveCompleteVolunteerInfoOrg" parameterType="com.sh.domain.VolunteerOrgCompleteDTO">
+		INSERT INTO kbsc.vo_com
+		(V_TITLE, APPLY_DATE, V_DATE, V_FIELD, V_PLACE, V_TIME, ORG_NAME, V_BOARD_NUM, V_SYS_ID, U_SYS_ID, VO_APPLY_NUM)
+		VALUES(#{v_title}, curtime(), #{v_date}, #{v_field}, #{v_place}, #{v_time}, #{org_name}, #{v_board_num}, #{v_sys_id}, #{u_sys_id}, #{vo_apply_num})	
+	</insert>
+	
+	
+	<select id="getVolunteerCompleteUserInfo" resultType="com.sh.domain.VolunteerPointCertificateUserDTO">
+		select V_DATE, V_SYS_ID, VU_COM_NUM
+		from vu_com
+		where v_board_num=#{v_board_num} and u_sys_id=#{u_sys_id}
+	</select>
+	
+	<select id="getVolunteerCompleteOrgInfo" resultType="com.sh.domain.VolunteerPointCertificateOrgDTO">
+		select V_DATE, V_SYS_ID, VO_COM_NUM
+		from vo_com
+		where v_board_num=#{v_board_num} and u_sys_id=#{u_sys_id}
+	</select>
+	
+	<insert id="saveCompleteVolunteerPointCertificateUser" parameterType="com.sh.domain.VolunteerPointCertificateUserDTO">
+	INSERT INTO kbsc.v_certificate_point_user
+	(CERTIFICATE_CODE, V_DATE, V_POINT, V_BOARD_NUM, U_SYS_ID, V_SYS_ID, VU_COM_NUM)
+	VALUES(#{certificate_code}, #{v_date}, #{v_point}, #{v_board_num}, #{u_sys_id}, #{v_sys_id}, #{vu_com_num})
+	
+	</insert>
+	
+	<insert id="saveCompleteVolunteerPointCertificateOrg" parameterType="com.sh.domain.VolunteerPointCertificateOrgDTO">
+	INSERT INTO kbsc.v_certificate_point_org
+	(CERTIFICATE_CODE, V_DATE, V_POINT, V_BOARD_NUM, U_SYS_ID, V_SYS_ID, VO_COM_NUM)
+	VALUES(#{certificate_code}, #{v_date}, #{v_point}, #{v_board_num}, #{u_sys_id}, #{v_sys_id}, #{vo_com_num})
+	
+	</insert>
+	
+	<select id="getVolunteerTime" resultType="_int">
+		select v_time from v_board where v_board_num=#{v_board_num}
+	</select>
+	
+	<select id="searchBoardList" resultType="com.sh.domain.VolunteerInfoDTO">
+		select * from v_board
+		<trim prefix="where(" suffix=")">
+			<choose>
+				<when test="searchCriteria == 'v_title'.toString()">
+					v_title like '%${searchWord}%'
+				</when>
+				<when test="searchCriteria == 'org_name'.toString()">
+					org_name like'%${searchWord}%'
+				</when>
+				<when test="searchCriteria == 'v_place'.toString()">
+					v_place like '%${searchWord}%'
+				</when>
+			</choose>
+		</trim>
+		
+	</select>
+	
+</mapper>
+
+
+
+
+

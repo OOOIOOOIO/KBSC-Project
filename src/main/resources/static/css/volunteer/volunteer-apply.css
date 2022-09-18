@@ -1,0 +1,81 @@
+body{
+ background-color: whitesmoke;
+}
+a{
+    text-decoration: none;
+    /* color: black; */
+}
+input[type=checkbox]{
+    width: 30px; 
+    height: 30px;
+    border: 1px solid #999;
+    border-radius: 30px;
+    appearance: none;
+
+}
+input[type="checkbox"]:checked {
+    background: black;
+    border: none;
+  }
+.nav{
+	margin-top: 3%;
+    height: 120px;
+    background-color: #ffce0b;
+    border-radius: 10px;
+    
+}
+.nav-body{
+    margin: 0 auto;
+    text-align: center; 
+    line-height: 100px;
+}
+.nav-text{
+    font-size: 48px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    
+}
+
+.my-status-button{
+    background-color: #ffce0b; color: black;
+    width: 60%; 
+    height: 100%;
+    font-size: 25px;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    
+    
+}
+.card-list{
+    width: 60%;
+    overflow: hidden; 
+    text-align: center; 
+    border: 1px solid gainsboro; 
+    border-radius: 30px; 
+    margin: 0 auto;
+    background-color: gainsboro;
+    
+}
+.card-title{
+    border-bottom: 1px solid whitesmoke;
+    font-family: 'Single Day', cursive;
+    
+}
+.text-wrapper{
+    float: left; 
+    text-align: center; 
+    width: 60%; 
+    padding-top: 8px;
+}
+.checkbox-wrapper{
+    float: right; 
+    text-align: center; 
+    width: 40%; 
+    height: 50px;
+    padding-top: 5px;
+}
+.text{
+    font-family: 'Single Day', cursive;
+}
+

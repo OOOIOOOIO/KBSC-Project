@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.mapper.DonationUserMapper">
+
+	<select id="getDonationBoardList" resultType="com.sh.domain.DonationInfoDTO">
+		select * from c_board
+	</select>
+	
+	<select id="getDonationBoardInfo" resultType="com.sh.domain.DonationInfoDTO">
+		select * from c_board where c_board_num=#{c_board_num}
+	</select>
+	
+	<select id="getCharityOrgInfo" resultType="com.sh.domain.CharityOrgDTO">
+		select * 
+		from charity_org_info 
+		where C_SYS_ID = (select c_sys_id from c_board where c_board_num=#{c_board_num})
+	</select>
+	
+	<select id="getSomeBoardInfoUser" resultType="com.sh.domain.DonationCompleteUserDTO">
+		SELECT C_BOARD_NUM, C_TITLE, C_FIELD, ORG_NAME, C_SYS_ID
+		FROM kbsc.c_board
+		where c_board_num=#{c_board_num}
+
+	</select>
+
+	<select id="getSomeBoardInfoOrg" resultType="com.sh.domain.DonationCompleteOrgDTO">
+		SELECT C_BOARD_NUM, C_TITLE, C_FIELD, ORG_NAME, C_SYS_ID
+		FROM kbsc.c_board
+		where c_board_num=#{c_board_num}	
+	</select>
+	
+	<insert id="saveDonationCompleteInfoUser" parameterType="com.sh.domain.DonationCompleteUserDTO">
+		INSERT INTO kbsc.cu_donation_info
+		(C_TITLE, DONATION_DATE, DONATION_TYPE, C_FIELD, ORG_NAME, C_SYS_ID, U_SYS_ID, C_BOARD_NUM)
+		VALUES(#{c_title}, curtime(), #{donation_type}, #{c_field}, #{org_name}, #{c_sys_id}, #{u_sys_id}, #{c_board_num})
+	</insert>
+
+	<insert id="saveDonationCompleteInfoOrg" parameterType="com.sh.domain.DonationCompleteOrgDTO">
+		INSERT INTO kbsc.co_donation_info
+		(C_TITLE, DONATION_DATE, DONATION_TYPE, C_FIELD, ORG_NAME, C_SYS_ID, U_SYS_ID, C_BOARD_NUM)
+		VALUES(#{c_title}, curtime(), #{donation_type}, #{c_field}, #{org_name}, #{c_sys_id}, #{u_sys_id}, #{c_board_num})
+	</insert>
+	
+	
+	<insert id="saveDonationPaymentCashUser" parameterType="com.sh.domain.DonationPaymentCashDTO">
+		INSERT INTO kbsc.donation_payment_cash_user
+		(AMOUNT_OF_MONEY, CREDIT_CARD_NUMBER, PAYMENT_TYPE, CREDIT_CARD_COMPANY, CREDIT_CARD_VALID_DATE, CREDIT_CARD_OWNER_NAME, CREDIT_CARD_OWNER_BIRTH, DONATION_DATETIME, C_BOARD_NUM, U_SYS_ID, C_SYS_ID, CO_NUM, CU_NUM)
+		VALUES(#{amount_of_money}, #{credit_card_number}, #{payment_type}, #{credit_card_company}, #{credit_card_valid_date}, #{credit_card_owner_name}, #{credit_card_owner_birth}, curtime(), #{c_board_num}, #{u_sys_id}, #{c_sys_id}, #{co_num}, #{cu_num})
+
+		
+	</insert>
+	
+	
+	<insert id="saveDonationPaymentPointUser" parameterType="com.sh.domain.DonationPaymentPointDTO">
+		INSERT INTO kbsc.donation_payment_point_user
+		(AMOUNT_OF_POINT, DONATION_DATETIME, C_BOARD_NUM, U_SYS_ID, C_SYS_ID, CO_NUM, CU_NUM)
+		VALUES(#{amount_of_point}, curtime(), #{c_board_num}, #{u_sys_id}, #{c_sys_id}, #{co_num}, #{cu_num})
+		
+	</insert>
+	
+	
+	
+	<insert id="saveDonationPaymentCashOrg" parameterType="com.sh.domain.DonationPaymentCashDTO">
+		INSERT INTO kbsc.donation_payment_cash_org
+		(AMOUNT_OF_MONEY, CREDIT_CARD_NUMBER, PAYMENT_TYPE, CREDIT_CARD_COMPANY, CREDIT_CARD_VALID_DATE, CREDIT_CARD_OWNER_NAME, CREDIT_CARD_OWNER_BIRTH, DONATION_DATETIME, C_BOARD_NUM, U_SYS_ID, C_SYS_ID, CO_NUM, CU_NUM)
+		VALUES(#{amount_of_money}, #{credit_card_number}, #{payment_type}, #{credit_card_company}, #{credit_card_valid_date}, #{credit_card_owner_name}, #{credit_card_owner_birth}, curtime(), #{c_board_num}, #{u_sys_id}, #{c_sys_id}, #{co_num}, #{cu_num})
+
+		
+	</insert>
+	
+	
+	<insert id="saveDonationPaymentPointOrg" parameterType="com.sh.domain.DonationPaymentPointDTO">
+		INSERT INTO kbsc.donation_payment_point_org
+		(AMOUNT_OF_POINT, DONATION_DATETIME, C_BOARD_NUM, U_SYS_ID, C_SYS_ID, CO_NUM, CU_NUM)
+		VALUES(#{amount_of_point}, curtime(), #{c_board_num}, #{u_sys_id}, #{c_sys_id}, #{co_num}, #{cu_num})
+		
+	</insert>
+	
+	<select id="getCompleteInfo" resultType="com.sh.webDomain.DonationCompleteInfoDTO">
+		select cudi.CU_NUM, codi.CO_NUM, codi.C_SYS_ID
+		from cu_donation_info as cudi
+		join co_donation_info as codi
+		on cudi.U_SYS_ID = codi.U_SYS_ID and cudi.C_BOARD_NUM = codi.C_BOARD_NUM
+		where cudi.U_SYS_ID = #{u_sys_id} and cudi.C_BOARD_NUM = #{c_board_num}
+		order by cudi.CU_NUM desc, codi.CO_NUM desc limit 1	
+	</select>
+
+	
+	<select id="getMyVolunteerPoint" resultType="Integer">
+		select sum(v_point) 
+		from v_certificate_point_user
+		where u_sys_id=#{u_sys_id}
+	</select>
+	
+	<select id="getMyDonationPoint" resultType="Integer">
+		select sum(AMOUNT_OF_POINT) 
+		from donation_payment_point_user
+		where u_sys_id=#{u_sys_id}
+	</select>
+	
+	<select id="getDonationTimes" resultType="Long">
+		select count(u_sys_id)
+		from co_donation_info
+		where c_board_num=#{c_board_num}
+	</select>
+	
+	<select id="getDonationAmountCash" resultType="Long">
+		select sum(amount_of_money)
+		from donation_payment_cash_org
+		where c_board_num=#{c_board_num}
+	</select>
+	
+	<select id="getDonationAmountPoint" resultType="Long">
+		select sum(amount_of_point)
+		from donation_payment_point_org
+		where c_board_num=#{c_board_num}
+	</select>
+	
+	<select id="getRecentDonationInfo" resultType="com.sh.webDomain.DonationPaymentInfoDTO">
+	select cu_num, org_name, donation_type, donation_date, (select name_kr from user_info where u_sys_id=#{u_sys_id}) as name_kr
+	from cu_donation_info cdi 
+	where u_sys_id = #{u_sys_id}
+	order by cu_num desc limit 1;
+	</select>
+	
+	<select id="getRecentPaymentCash" resultType="Long">
+		select amount_of_money
+		from donation_payment_cash_user
+		where cu_num=#{cu_num}
+	
+	</select>
+	
+	<select id="getRecentPaymentPoint" resultType="Integer">
+		select amount_of_point
+		from donation_payment_point_user
+		where cu_num=#{cu_num}
+	</select>
+	
+	
+		
+	<select id="searchBoardList" resultType="com.sh.domain.DonationInfoDTO">
+		select * from c_board
+		<trim prefix="where(" suffix=")">
+			<choose>
+				<when test="searchCriteria == 'c_title'.toString()">
+					c_title like '%${searchWord}%'
+				</when>
+				<when test="searchCriteria == 'org_name'.toString()">
+					org_name like'%${searchWord}%'
+				</when>
+				<when test="searchCriteria == 'c_field_os'.toString()">
+					c_title like '%${searchWord}%' and c_field = "해외후원"
+				</when>
+				<when test="searchCriteria == 'c_field_dm'.toString()">
+					c_title like '%${searchWord}%' and c_field = "국내후원"
+				</when>
+				<when test="searchCriteria == 'c_field_co'.toString()">
+					c_title like '%${searchWord}%' and c_field = "코로나19 긴급구호"
+				</when>
+				<when test="searchCriteria == 'c_field_af'.toString()">
+					c_title like '%${searchWord}%' and c_field = "아프가니스탄 긴급구호"
+				</when>
+				<when test="searchCriteria == 'c_field_sr'.toString()">
+					c_title like '%${searchWord}%' and c_field = "시리아 긴급구호"
+				</when>
+				<when test="searchCriteria == 'c_field_ea'.toString()">
+					c_title like '%${searchWord}%' and c_field = "동아프리카 긴급구호"
+				</when>
+			</choose>
+		</trim>
+		
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

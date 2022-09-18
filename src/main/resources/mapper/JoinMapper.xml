@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.mapper.JoinMapper">
+
+	<!-- User -->
+	
+	<insert id="cuJoin" parameterType="com.sh.domain.UserDTO">
+		INSERT INTO kbsc.user_info
+		(U_SYS_ID, NAME_KR, NAME_EN, USER_ID, USER_PW, USER_PHONE, USER_EMAIL, USER_BIRTH, ZIPCODE, ADDR, ADDR_DETAIL, ADDR_ETC, USER_JOB, ORG_NAME)
+		VALUES(#{u_sys_id}, #{name_kr}, #{name_en}, #{user_id}, #{user_pw}, #{user_phone}, #{user_email}, #{user_birth}, #{zipcode}, #{addr}, #{addr_detail}, #{addr_etc}, #{user_job}, #{org_name})
+	</insert>
+	
+	<select id="cuCheckId" resultType="_int">
+		select count(*) from user_info where user_id=#{user_id}
+	</select>
+	<select id="cuCheckEmail" resultType="_int">
+		select count(*) from user_info where user_email=#{user_email}
+	</select>
+	<select id="cuCheckPhone" resultType="_int">
+		select count(*) from user_info where user_phone=#{user_phone}
+	</select>
+	
+
+	<!-- Volunteer -->
+
+	<insert id="voJoin" parameterType="com.sh.domain.VolunteerOrgDTO">
+		INSERT INTO kbsc.volunteer_org_info
+		(V_SYS_ID, NAME_KR, NAME_EN, USER_ID, USER_PW, USER_PHONE, USER_EMAIL, USER_BIRTH, ZIPCODE, ADDR, ADDR_DETAIL, ADDR_ETC, ORG_NAME, ORG_PHONE, BUSINESS_NUM, ORG_CODE)
+		VALUES(#{v_sys_id}, #{name_kr}, #{name_en}, #{user_id}, #{user_pw}, #{user_phone}, #{user_email}, #{user_birth}, #{zipcode}, #{addr}, #{addr_detail}, #{addr_etc}, #{org_name}, #{org_phone}, #{business_num}, #{org_code})
+	</insert>
+	
+	<select id="voCheckId" resultType="_int">
+		select count(*) from volunteer_org_info where user_id=#{user_id}
+	</select>
+	<select id="voCheckEmail" resultType="_int">
+		select count(*) from volunteer_org_info where user_email=#{user_email}
+	</select>
+	<select id="voCheckPhone" resultType="_int">
+		select count(*) from volunteer_org_info where user_phone=#{user_phone}
+	</select>
+
+	
+	<!-- Charity -->
+	
+	<insert id="coJoin" parameterType="com.sh.domain.CharityOrgDTO">
+		INSERT INTO kbsc.charity_org_info
+		(C_SYS_ID, NAME_KR, NAME_EN, USER_ID, USER_PW, USER_PHONE, USER_EMAIL, USER_BIRTH, ZIPCODE, ADDR, ADDR_DETAIL, ADDR_ETC, ORG_NAME, ORG_PHONE, BUSINESS_NUM, ORG_CODE)
+		VALUES(#{c_sys_id}, #{name_kr}, #{name_en}, #{user_id}, #{user_pw}, #{user_phone}, #{user_email}, #{user_birth}, #{zipcode}, #{addr}, #{addr_detail}, #{addr_etc}, #{org_name}, #{org_phone}, #{business_num}, #{org_code})
+	</insert>
+	
+	<select id="coCheckId" resultType="_int">
+		select count(*) from charity_org_info where user_id=#{user_id}
+	</select>
+	<select id="coCheckEmail" resultType="_int">
+		select count(*) from charity_org_info where user_email=#{user_email}
+	</select>
+	<select id="coCheckPhone" resultType="_int">
+		select count(*) from charity_org_info where user_phone=#{user_phone}
+	</select>
+
+	
+</mapper>

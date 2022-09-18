@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>regist</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/donation/donation-information.css}" >
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet"> 
+        
+</head>
+<body>
+    
+
+    <!-- nav -->
+	<div th:replace="~{fragments/navChari :: nav}"></div> 
+    <br>
+    
+    <!-- 봉사 정보 -->
+    <form name="registForm" action="" th:action="@{/charityOrg/regist}" method="post" enctype="multipart/form-data">
+	    <div class="container">
+	        <div class="card">
+	            <div class="card-title" style="border-bottom: 1px solid gainsboro; font-size: 20px;">	
+	            	<input type="text" name="c_title" placeholder="기부 공고 제목" style="width: 100%">
+	            </div>
+	            <table class="table">
+	                <tr>
+		                    <td class="td-l">모집 기관</td>
+		                    <td class="td-r" >	
+		                    	<input disabled type="text" name="org_name" th:value="${cOInfo.org_name}">
+		                    </td>
+	                </tr>
+	                <tr>
+		                    <td class="td-l">기부 분야</td>
+		                    <td class="td-r" >	
+		                    	<!-- <input type="text" name="c_field" placeholder="기부 분야"> -->
+			                    <select class="form-select" name="c_field" required style="width: 100%;">
+			                        <option value="일반후원" >일반후원</option>
+			                        <option value="국내후원">국내후원</option>
+			                        <option value="해외후원">해외후원</option>
+			                        <option value="코로나19 긴급구호">코로나19 긴급구호</option>
+			                        <option value="아프가니스탄 긴급구호">아프가니스탄 긴급구호</option>
+			                        <option value="시리아 긴급구호">시리아 긴급구호</option>
+			                        <option value="동아프리카 긴급구호">동아프리카 긴급구호</option>
+			                    </select>				                    	
+		                    </td>
+	                </tr>
+	                <tr>
+	                    <td class="td-l">첨부파일</td>
+	                    <td class="td-r"><input type="file" name="file"></td>
+	                </tr>
+	            </table>
+	            <div class="card-body">
+					<textarea name="c_contents" style="resize: vertical; width: 100%; height: 500px;" placeholder="봉사 내용을 입력해주세요"></textarea>
+	            </div>
+	        </div>
+	    </div>
+	    <br>
+	    <div class="container">
+	        <div class="card  list-wrapper">
+	            <div class="list-group">
+	                <p class="mb-1">담당자명 : [[${cOInfo.name_kr}]]</p>
+	                <p class="mb-1">단체 전화번호 : [[${cOInfo.org_phone}]]</p>
+	                <p class="mb-1">주소 : [[${cOInfo.addr}]]</p>
+	            </div>
+	        </div>
+	    </div>
+	    <br>
+	    <br>
+	    <div class="move" style="text-align: center;">
+	        <input type="submit" class="btn btn-primary my-status-button shadow " value="기부 공고 올리기">
+	    </div>
+    </form>
+    <br>
+</body>
+</html>

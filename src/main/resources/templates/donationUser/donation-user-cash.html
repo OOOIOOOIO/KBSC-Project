@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>payment</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/donation/donation-cash.css}">
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet"> 
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap}" rel="stylesheet">
+       
+</head>
+<body>
+    
+    <!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div> 
+    <br>
+    <br>
+    <br>
+    <!-- 체크박스 같은 name으로 넘길 때 컨트롤러에서 list로 받기 -->
+    <div class="container">
+        <div class="card-wrapper" >
+           <form action="" th:action="@{/donationUser/complete-cash/{c_board_num}(c_board_num=${c_board_num})}" method="post">
+                <div class="card card-money">
+                    <div class="card-title"> 기부 금액</div>
+                    <table class="table">
+                        <tr>
+                            <td style="width: 80%;  text-align: right;"><input type="number" name="amount_of_money" placeholder="10000" style="width: 90%;" ></td>
+                            <td style="width: 20%; text-align: center;">₩(원)</td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+                <br>
+				<p class="field-error" th:if="${creditCardError != null}" style="font-size: 20px; font-family: 'Single Day'; color: red;" th:text="#{creditCardError}">신용카드 오류 메시지</p>
+	            <p class="field-error" th:if="${dbError != null}" style="font-size: 20px; font-family: 'Single Day'; color: red;" th:text="#{dbFail}">db 오류 메시지</p>
+                <div class="card card-list shadow" >
+                    <div class="card-title" style="text-align: center;">결제 방법</div>
+                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group" style="margin: 5px;">
+                        <input type="radio" class="btn-check" id="btnradio1" name="payment_type" value="creditCard" autocomplete="off" checked>
+                        <label class="btn btn-outline-secondary" for="btnradio1">신용카드</label>
+                      
+                        <input type="radio" class="btn-check" id="btnradio2" name="payment_type"  value="account" autocomplete="off" disabled>
+                        <label class="btn btn-outline-secondary " for="btnradio2">자동이체</label>
+                      
+                        <input type="radio" class="btn-check" id="btnradio3" name="payment_type"  value="kakaopay" autocomplete="off" disabled>
+                        <label class="btn btn-outline-secondary" for="btnradio3">카카오페이</label>
+                        <input type="radio" class="btn-check" id="btnradio4" name="payment_type"  value="payco" autocomplete="off" disabled>
+                        <label class="btn btn-outline-secondary" for="btnradio4">PAYCO</label>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody style="width: 100%;">
+                                <tr>
+                                    <td class="td-l">카드사</td>
+                                    <td class="td-r">
+                                        <select class="form-select" name="credit_card_company" required style="width: 100%;">
+                                            <option value="kb" >KB국민카드</option>
+                                            <option value="shinhan">신한카드</option>
+                                            <option value="lotte">롯데카드</option>
+                                            <option value="bc">BC카드</option>
+                                            <option value="nh">NH농협카드</option>
+                                            <option value="samsung">삼성카드</option>
+                                            <option value="hyundai">현대카드</option>
+                                            <option value="kakao">카카오뱅크</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td-l">카드번호</td>
+                                    <td class="td-r"><input type="number" name="credit_card_number" placeholder="'-'제외하고 입력해 주세요." style="width:100%"></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-l">유효기간</td>
+                                    <td class="td-r"><input type="text" name="credit_card_valid_date" placeholder="mm/yy" style="width:100%"></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-l">카드소유자 성명</td>
+                                    <td class="td-r"><input type="text" name="credit_card_owner_name" placeholder="김성호" style="width:100%"></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-l">카드소유자 생년월일</td>
+                                    <td class="td-r"><input type="number" name="credit_card_owner_birth"  placeholder="19980111" style="width:100%"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="move" style="text-align: center;">
+                    <input type="submit" class="btn btn-primary my-status-button shadow " value="결제하기" >
+                </div>
+            </form>
+            
+        </div>
+    </div>
+    <br>
+    <br>
+   
+    <script type="text/javascript" src="D:/polit/kbsc/front-workspace/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+	<script type="text/javascript" th:inline="javascript">
+	
+		// 흠 할까말까 흠..
+		/*<![CDATA[*/
+			
+		/* let donationPointForm = document.pointForm;
+		let donationPoint = document.pointForm.amount_of_point;
+		let c_board_num = "[[${c_board_num}]]";
+	
+		function send(){
+			
+			$.ajax(
+				{
+					type:"POST",
+					url : "",
+					data: Json.stringfy({
+					    "amount_of_money" : 1000,
+					    "credit_card_number" : "165415451545",
+					    "credit_card_company" : "kb",
+					    "credit_card_valid_date" : "13/66",
+					    "credit_card_owner_name" : "kimkimkim",
+					    "credit_card_owner_birth" : "19980111"
+					}),
+					dataType : "json",
+					contentType : "application/json",
+					success:function(result){
+						if(result == "success"){
+							donationPointForm.action = "/donationUser/complete-cash/"+c_board_num;
+							donationPointForm.method = "POST";
+							donationPointForm.submit();
+						}
+						else{
+							alert("카드 정보를 다시 확인해 주세요");
+						}
+					}
+				}
+				
+			)
+		}; */
+		
+		/*]]>*/
+
+	
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>apply</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/volunteer/volunteer-apply.css}" >
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet">     
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap}" rel="stylesheet">     
+    
+
+</head>
+<body>
+	<!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div>
+    <br>
+    <br>
+    <!-- 체크박스 같은 name으로 넘길 때 컨트롤러에서 list로 받기 -->
+    <div class="container">
+        <div class="card-wrapper" >
+            
+            <form name="applyForm" th:action="@{/volunteerUser/complete}" method="post">
+                <div th:each="dateInfo : ${dateInfo}">
+                    <div class="card card-list shadow" >
+                        <div class="card-title" th:text="${dateInfo.key}">날짜</div>
+                        <div>
+                            <div class="text-wrapper">
+                                <div class="text" >신청 가능 인원 : [[${dateInfo.value}]]</div>
+                            </div>
+                        
+                            <div class="checkbox-wrapper" th:if="${ dateInfo.value != 0}">
+	                            <input type="checkbox" id="box" name="v_date" th:value="${dateInfo.key}" >
+                            </div>
+                            <div class="checkbox-wrapper" th:unless="${ dateInfo.value != 0}">
+	                            <input type="checkbox" id="box" name="v_date" th:value="${dateInfo.key}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                </div>
+                <br>
+                <div class="move" style="text-align: center;">
+                    <input disabled type="submit" id="submitBtn" class="btn btn-primary my-status-button shadow " value="봉사 신청하기">
+                </div>
+                <br>
+                <br>
+                <div hidden>
+                	 <input type="number" name="v_board_num" th:value="${param.v_board_num}">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="D:/polit/kbsc/front-workspace/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript">
+	/*
+		체크박스 선택 유무 
+	*/
+	$('input:checkbox[name="v_date"]').click(function(){
+	    if($('input:checkbox[name="v_date"]').is(':checked')){
+		    $('#submitBtn').prop("disabled",false);
+	    	
+	    }
+	    else{
+	    $('#submitBtn').prop("disabled",true);
+	    	
+	    }
+	
+	  
+	});
+
+</script>
+</html>

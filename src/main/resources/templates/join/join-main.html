@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>join</title>
+
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link th:href="@{/css/join/join-main.css}" rel="stylesheet" >
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet">   
+          
+
+</head>
+<body>
+ 
+    <!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div>
+	
+	<br>
+	<br>
+	<br>
+	<!-- body -->
+	<div class="container">
+	    <div class="card card-my-status shadow" >
+	        <div class="card-body  my-status-user" >일반 회원으로 회원가입</div>
+	        <div class="card-body my-status-wrap-button" >
+	            <a href="#" th:href="@{/join/common}" class="btn btn-primary my-status-button shadow " >가입하러 가기</a>
+	        </div>
+	    </div>
+	</div>
+	<br>
+	<br>
+	<div class="container">
+	    <div class="card card-my-status shadow" >
+	        <div class="card-body  my-status-user" >봉사 단체로 회원가입</div>
+	        <div class="card-body my-status-wrap-button" >
+	            <a href="#" th:href="@{/join/volunteer}" class="btn btn-primary my-status-button shadow " >가입하러 가기</a>
+	        </div>
+	    </div>
+	</div>
+	<br>
+	<br>
+	<div class="container">
+	    <div class="card card-my-status shadow" >
+	        <div class="card-body  my-status-user" >기부 단체로 회원가입</div>
+	        <div class="card-body my-status-wrap-button" >
+	            <a href="#" th:href="@{/join/charity}" class="btn btn-primary my-status-button shadow " >가입하러 가기</a>
+	        </div>
+	    </div>
+	</div>
+	<br>
+	<br>
+
+</body>
+
+<!-- 주소 js 따오기 -->
+
+</html>

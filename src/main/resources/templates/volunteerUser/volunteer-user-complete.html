@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>complete</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/volunteer/volunteer-complete.css}" >
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet">     
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap}" rel="stylesheet">     
+    
+
+</head>
+<body>
+	<!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- 체크박스 같은 name으로 넘길 때 컨트롤러에서 list로 받기 -->
+    <div class="container">
+        <div class="card card-complete shadow" >
+            <div class="card-body" >[[${name_kr}]]님의 봉사 신청이 완료 되었습니다!</div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+        <div>
+           <div class="container">
+                <div class="card card-vd-l">
+                    <div class="card-body " style="text-align: center;  background-color: whitesmoke;" >
+                        <a href="#" th:href="@{/user/volunteerHistory}" class="btn btn-primary vd-btn shadow" style="padding: 10px;" >신청내역 확인하기</a>
+                    </div>
+                </div>
+            </div>
+                
+        </div>
+        <div>
+                
+            <div class="container" >
+                <div class="card card-vd-r" >
+                    <div class="card-body " style="text-align: center; background-color: whitesmoke;" >
+                        <a href="#" th:href="@{/home}" class="btn btn-primary vd-btn shadow" style="padding: 10px;" >메인으로 돌아가기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+    </div>
+    
+ 
+
+</body>
+
+</html>

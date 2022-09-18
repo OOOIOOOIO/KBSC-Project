@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.mapper.LoginMapper">
+
+
+	<!-- User -->
+	
+	<select id="cuLogin" parameterType="com.sh.domain.UserDTO" resultType="String">
+		select user_pw from user_info where user_id=#{user_id}
+	</select>
+	
+	<select id="cuUserInfo" resultType="com.sh.domain.UserDTO">
+		select * from user_info where user_id=#{user_id}
+	</select>
+	
+	<select id="cuCheckId" resultType="_int">
+		select count(*) from user_info where user_id=#{user_id}
+	
+	</select>
+	
+
+	<!-- Volunteer -->
+
+	<select id="voLogin" parameterType="com.sh.domain.VolunteerOrgDTO" resultType="String">
+		select user_pw from volunteer_org_info where user_id=#{user_id}
+	</select>
+	
+	<select id="voUserInfo" resultType="com.sh.domain.VolunteerOrgDTO">
+		select * from volunteer_org_info where user_id=#{user_id}
+	</select>
+	
+	<select id="voCheckId" resultType="_int">
+		select count(*) from volunteer_org_info where user_id=#{user_id}
+	</select>
+
+	
+	<!-- Charity -->
+	
+	<select id="coLogin" parameterType="com.sh.domain.CharityOrgDTO" resultType="String">
+		select user_pw from charity_org_info where user_id=#{user_id}
+	</select>
+
+	<select id="coUserInfo" resultType="com.sh.domain.CharityOrgDTO">
+		select * from charity_org_info where user_id=#{user_id}
+	</select>
+	
+	<select id="coCheckId" resultType="_int">
+		select count(*) from charity_org_info where user_id=#{user_id}
+	</select>
+
+	
+</mapper>
