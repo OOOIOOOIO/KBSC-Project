@@ -1,0 +1,127 @@
+body{
+ background-color: whitesmoke;
+}
+a{
+    text-decoration: none;
+    /* color: black; */
+}
+input[type=text]{
+    text-align: center;
+}
+select{
+    text-align: center;
+}
+input[type=radio]:checked{
+    background-color: black;
+    
+}
+.nav{
+	margin-top: 3%;
+    height: 120px;
+    background-color: #ffce0b;
+    border-radius: 10px;
+    
+}
+.nav-body{
+    margin: 0 auto;
+    text-align: center; 
+    line-height: 100px;
+}
+.nav-text{
+    font-size: 48px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    
+}
+.card-money{
+    width: 90%;
+    overflow: hidden; 
+    text-align: center; 
+    border: 1px solid gainsboro; 
+    /* border-radius: 30px;  */
+    margin: 0 auto;
+    background-color: gainsboro;
+    
+}
+.card-title{
+    border-bottom: 1px solid whitesmoke;
+    font-family: 'Single Day', cursive;
+    font-size: 30px;
+    
+}
+.card-list{
+    width: 90%;
+    overflow: hidden; 
+    text-align: center; 
+    border: 1px solid gainsboro; 
+    /* border-radius: 30px;  */
+    margin: 0 auto;
+    background-color: gainsboro;
+    
+}
+.btn-group{
+    border-bottom: 1px solid white;
+}
+.btn-check{
+    border: 1px solid gainsboro;
+}
+.td-l{
+    
+    width: 40%;
+    text-align: center;
+    font-family: 'Single Day', cursive;
+}
+.td-r{
+    width: 60%;
+    text-align: center;
+    font-family: 'Single Day', cursive;
+}
+
+.btn-wrap{
+    width: 50%; 
+    height: 100px; 
+    text-align: center; 
+    float: left; 
+    margin: 0 auto;
+    
+}
+.history-button{
+    display: block;
+    background-color: #ffce0b; color: black;
+    width: 80%; 
+    height: 100%;
+    font-size: 25px;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    margin: 0 auto;
+    padding: 30px;
+    
+}
+.home-button{
+    background-color: #ffce0b; color: black;
+    width: 70%; 
+    height: 100%;
+    font-size: 25px;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    padding: 10px;
+    
+    
+}
+.my-status{
+    background-color: #ffce0b; color: black;
+    width: 20%; 
+    height: 70%;
+    font-size: 15px;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    display:inline-block; 
+    margin: 50px; 
+    padding: 10px;
+    
+}
+
+

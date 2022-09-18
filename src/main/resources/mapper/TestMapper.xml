@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.mapper.TestMapper">
+
+	<insert id="testJoin" parameterType="Map">
+		insert into kbsc.test (ID, PW) values (#{user_id}, #{user_pw})
+	</insert>
+	
+	<select id="testGetPw" resultType="String">
+		select PW from test where ID=#{user_id}
+	</select>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.mapper.FileMapper">
+
+	<insert id="saveVolunteerFile" parameterType="com.sh.webDomain.FileSaveDTO" >
+		<selectKey keyProperty="board_num" order="BEFORE" resultType="_int">
+			select v_board_num
+			from v_board 
+			where v_sys_id=#{sys_id} 
+			order by v_board_num desc limit 1
+		</selectKey>
+		insert into kbsc.v_file (v_board_num, original_file_name, system_file_name)
+		 values (#{board_num}, #{original_file_name}, #{system_file_name})
+	</insert>
+	
+	<select id="getVolunteerFile" resultType="com.sh.domain.VolunteerFileDTO">
+		select * from v_file where v_board_num=#{board_num}
+	</select>
+	
+	<insert id="saveCharityFile" parameterType="com.sh.webDomain.FileSaveDTO">
+		<selectKey keyProperty="board_num"  order="BEFORE" resultType="_int">
+			select c_board_num
+			from c_board 
+			where c_sys_id=#{sys_id} 
+			order by c_board_num desc limit 1
+		</selectKey>
+		insert into kbsc.c_file (c_board_num, original_file_name, system_file_name)
+		 values (#{board_num}, #{original_file_name}, #{system_file_name})
+	</insert>
+	
+	<select id="getCharityFile" resultType="com.sh.domain.CharityFileDTO">
+		select * from c_file where c_board_num=#{board_num}
+	</select>
+</mapper>

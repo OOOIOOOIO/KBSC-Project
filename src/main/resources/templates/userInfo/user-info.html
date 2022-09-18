@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>user-info</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/userInfo/user-info.css}">
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet">          
+    
+</head>
+
+<body>
+
+    <!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div>
+    
+    
+    <br>
+<!--     <div style="text-align: right;">
+        <a href="#" class="btn btn-primary my-status shadow ">내 정보 수정</a>
+    </div> -->
+
+    
+    <br>
+    <!-- 체크박스 같은 name으로 넘길 때 컨트롤러에서 list로 받기 -->
+    <div class="container">
+        <div class="card-wrapper">
+            <br>
+            <br>
+
+            <div class="card card-list shadow">
+                <div class="card-title">내 나눔 현황</div>
+
+                <div class="card-body">
+                    <table class="table">
+                        <tbody style="width: 100%;">
+                            <tr>
+                                <td class="td-l">봉사 신청 </td>
+                                <td class="td-r">[[${applyTimes}]] 건!</td>
+                            </tr>
+                            <tr>
+                                <td class="td-l">봉사 완료 </td>
+                                <td class="td-r">[[${completeTimes}]] 건!</td>
+                            </tr>
+                            <tr>
+                                <td class="td-l">기부 완료</td>
+                                <td class="td-r">[[${donationCompleteTime}]] 건!</td>
+                            </tr>
+                            <tr>
+                                <td class="td-l">현금 기부</td>
+                                <td class="td-r">[[${donationAmountCash}]] 원!</td>
+                            </tr>
+                            <tr>
+                                <td class="td-l">포인트 기부</td>
+                                <td class="td-r">[[${donationAmountPoint}]] point!</td>
+                            </tr>
+                            <tr>
+                                <td class="td-l">잔여 포인트</td>
+                                <td class="td-r">[[${restVolunteerPoint}]] point!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <br>
+        <br>
+    </div>
+    <div style="width: 100%; overflow: hidden;">
+        <div class="btn-wrap" >
+            <a th:href="@{/user/volunteerHistory}" class="btn btn-primary history-button shadow ">봉사 내역 보기</a>
+        </div>
+        <div class="btn-wrap" >
+            <a th:href="@{/user/donationHistory}" class="btn btn-primary history-button shadow ">기부 내역 보기</a>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="" style="text-align: center;">
+        <a th:href="@{/}" class="btn btn-primary home-button shadow ">홈으로</a>
+    </div>
+
+    <br>
+    <br>
+
+    <!-- 보낼거 보내고 -->
+    <form action="">
+        <div hidden>
+            여기에 보낼거 보내자
+        </div>
+    </form>
+
+</body>
+
+</html>

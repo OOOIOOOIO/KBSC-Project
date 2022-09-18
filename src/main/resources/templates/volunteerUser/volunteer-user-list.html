@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>list</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/volunteer/volunteer-list.css}" >
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet">          
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap}" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div>
+    <br>
+    <!-- body -->
+
+    <!-- 검색 부분 -->
+    <div class="container">
+        
+        <div class="card" style="overflow: hidden;">
+            <!-- <form name="searchForm" th:action="@{/volunteerUser/search}" method="post"> -->
+            <div>    
+                <div style="float: left; width: 20%;">
+                    <select class="form-select" name="searchCriteria" required style="width: 100%;">
+                        <option value="v_title" >공고명</option>
+                        <option value="org_name">모집기관</option>
+                        <option value="v_place">지역</option>
+                    </select>
+                </div>
+                <div style="float: left; width: 60%;">
+                    <input class="form-control" type="text" name="searchWord" style="width: 100%;" placeholder="검색어를 입력해주세요">
+                </div>
+                <div style="float: left; width: 20%;">
+<!--                     <input class="form-control" type="submit" value="검색" style="width: 100%; background-color: gainsboro;" > -->
+                    <input class="form-control" type="button" value="검색" onclick="showSearchList()" style="width: 100%; background-color: gainsboro;" >
+                </div>
+            </div>
+            <!-- </form> -->
+        </div>
+    </div>
+    <br>
+
+    <!-- 봉사 목록 -->
+    <div class="container">
+        <div class="card list-wrapper">    
+            <!-- 목록을 다 받아와야한다, if, for문을 통해 가져옴   -->
+            <div class="list-group">
+            	<div class="alt list">
+	                <div th:if="${ vList != null &&  vList.size() > 0}" >
+	                    <a th:each="vList : ${vList}" href="#" th:href="@{/volunteerUser/information/{v_board_num}(v_board_num=${vList.v_board_num})}" class="list-group-item list-group-item-action">
+	                        <div class="d-flex w-100 justify-content-between">
+	                            <h5 class="mb-1" th:text="${vList.v_title}">공고이름</h5>
+	                            <small class="text-muted" th:text="${vList.org_name}">모집기관</small>
+	                        </div>
+	                        <p class="mb-1" th:text="${vList.v_place}">장소</p>
+	                        <small class="text-muted">봉사 기간 : [[${vList.v_start_date}]] ~ [[${vList.v_end_date}]]</small><br>
+	                        <small class="text-muted">모집 기간 : [[${vList.r_start_date}]] ~ [[${vList.r_end_date}]]</small><br>
+	                    </a>
+	                </div>
+	                <div th:unless="${ vList != null &&  vList.size() > 0}">
+	                    <span class="list-group-item" style="text-align: center;">현재 봉사 모집 공고가 없습니다.</span>
+	                </div>
+            	</div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="D:/polit/kbsc/front-workspace/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+	<script type="text/javascript" th:inline="javascript">
+		
+		function showSearchList(){
+			let alt = $(".alt");
+			let searchCriteria = $("select[name='searchCriteria']").val();
+			let searchWord = $("input[name='searchWord']").val();
+		
+			searchInfo = {"searchCriteria" : searchCriteria,
+						"searchWord" : searchWord		
+			};
+			
+			$.ajax(
+				{
+					type:"POST",
+					url:"/volunteerUser/search",
+					data:JSON.stringify(searchInfo),
+					contentType:"application/json; charset=utf-8",
+					success:function(result, status, xhr){
+						console.log("success ajax");
+						console.log("data"+searchInfo.toString());
+						console.log(result);
+						// dom 만들기
+						// dom 만들고 html -> reload
+						
+						let errStr = ""
+							
+						errStr +=	'<div class="alt list">';
+						errStr +=		'<span class="list-group-item" style="text-align: center;">현재 봉사 공고가 없습니다.</span>';
+						errStr +=	'<div>';	
+						
+						if(result == null || result.length == 0){
+							alt.html(errStr);
+							return;
+						}
+						
+						let str = "";
+						
+						str += '<div class="alt list">';
+						
+						for(let i = 0, len = result.length; i < len; i++){
+		                    str += '<a href="/volunteerUser/information/'+result[i].v_board_num+'" class="list-group-item list-group-item-action">';
+		                    str +=    '<div class="d-flex w-100 justify-content-between">';
+		                    str +=        '<h5 class="mb-1">'+result[i].v_title+'</h5>';
+		                    str +=        '<small class="text-muted" >'+result[i].org_name+'</small>';
+		                    str +=    '</div>';
+		                    str +=    '<p class="mb-1">'+result[i].v_place+'</p>';
+		                    str +=    '<small class="text-muted">봉사 기간 : '+result[i].v_start_date+' ~ '+result[i].v_end_date+'</small><br>';
+		                    str +=    '<small class="text-muted">모집 기간 : '+result[i].r_start_date+' ~ '+result[i].r_end_date+'</small><br>';
+		                    str += '</a>';
+						}
+						
+						str += '</div>';
+						
+						alt.replaceWith(str);
+						
+						
+					},
+					error:function(e, status, xhr){
+						console.log("fail ajax");
+					}
+					
+				}		
+			
+			)
+		}
+	</script>
+</body>
+</html>

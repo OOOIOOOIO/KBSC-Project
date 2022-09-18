@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.mapper.VolunteerOrgMapper">
+	
+	<select id="getVolunteerOrgInfo" resultType="com.sh.domain.VolunteerOrgDTO">
+		select * 
+		from volunteer_org_info 
+		where V_SYS_ID = #{v_sys_id}
+	</select>
+
+	<insert id="saveVolunteerInfo" parameterType="com.sh.domain.VolunteerInfoDTO">
+		INSERT INTO kbsc.v_board
+		
+		(V_TITLE, V_CONTENTS, V_START_DATE, V_END_DATE, V_FIELD, V_PLACE, V_TIME, V_TYPE, V_TARGET, 
+		R_START_DATE, R_END_DATE, R_NUM, ORG_NAME, ACT_TYPE, V_SYS_ID)
+		
+		VALUES(#{v_title}, #{v_contents}, #{v_start_date}, #{v_end_date}, #{v_field}, #{v_place}, #{v_time}, #{v_type},	#{v_target}, #{r_start_date}, #{r_end_date}, #{r_num}, #{org_name}, #{act_type}, #{v_sys_id})
+	</insert>
+	
+	<select id="getVolunteerBoardList" resultType="com.sh.domain.VolunteerInfoDTO">
+		select * from v_board
+	</select>
+	
+	<select id="readVolunteerBoardInfo" resultType="com.sh.domain.VolunteerInfoDTO">
+		select * from v_board where v_board_num=#{v_board_num}
+	</select>
+	
+	
+	<select id="searchBoardList" resultType="com.sh.domain.VolunteerInfoDTO">
+		select * from v_board
+		<trim prefix="where(" suffix=")">
+			<choose>
+				<when test="searchCriteria == 'v_title'.toString()">
+					v_title like '%${searchWord}%' and v_sys_id=#{sys_id}
+				</when>
+				<when test="searchCriteria == 'org_name'.toString()">
+					org_name like'%${searchWord}%' and v_sys_id=#{sys_id}
+				</when>
+				<when test="searchCriteria == 'v_place'.toString()">
+					v_place like '%${searchWord}%' and v_sys_id=#{sys_id}
+				</when>
+			</choose>
+		</trim>
+		
+	</select>
+		
+</mapper>

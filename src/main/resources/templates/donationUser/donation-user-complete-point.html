@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>complete</title>
+    
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/donation/donation-complete.css}" >
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet"> 
+	<link th:href="@{https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap}" rel="stylesheet">        
+
+</head>
+<body>
+    
+    <!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="card-wrapper" >
+            <div class="card card-money">
+                <div class="card-body" style="font-size: 35px;"> 기부가 완료 되었습니다!</div>
+
+            </div>
+            <br>
+            <br>
+
+            <div class="card card-list shadow" >
+                <div class="card-title" >기부 내역</div>
+
+                <div class="card-body">
+                    <table class="table">
+                        <tbody style="width: 100%;">
+                            <tr>
+                                <td class="td-l">기부 단체</td>
+                                <td class="td-r">[[${paymentInfo.org_name}]]</td>                              
+                            </tr>
+                            <tr>
+                                <td class="td-l">기부 방법</td>
+                                <td class="td-r">[[${paymentInfo.donation_type}]]</td>
+                            </tr>
+                            <tr>
+                                <td class="td-l">기부 일시</td>
+                                <td class="td-r">[[${paymentInfo.donation_date}]]</td>
+                            </tr>
+                            <tr>
+                                <td class="td-l">기부 포인트</td>
+                                <td class="td-r">[[${paymentInfo.amount_of_point}]] point</td>
+                            </tr>
+                            <tr>
+                                <td class="td-l">기부자</td>
+                                <td class="td-r">[[${paymentInfo.name_kr}]]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+
+            <div class="move" style="text-align: center;">
+                <a th:href="@{/home}" class="btn btn-primary my-status-button shadow ">홈으로</a>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+
+    <!-- bootstrap css -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link th:href="@{/css/login/login-all.css}" rel="stylesheet" >
+
+    <!-- google fonts-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Single+Day&display=swap}" rel="stylesheet">  
+        
+
+</head>
+<body>
+    
+    <!-- nav -->
+	<div th:replace="~{fragments/nav :: nav}"></div> 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!-- body -->
+    <div class="container-fluid">
+      <form name="loginForm" th:object="${loginForm}" th:action="@{/login/charity}" method="post">
+	        <div th:if="${#fields.hasGlobalErrors()}">
+	            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+	        </div> 
+        <div class="row mb-3" >
+          <label for="inputid3" class="col-sm-2 col-form-label login-text-r" >아이디</label>
+          <input type="text" class="form-control login-input" id="inputid3" name="user_id" >
+          <div class="field-error" th:errors="*{user_id}" >user_id 오류</div>
+        </div>
+        <div class="row mb-3" >
+          <label for="inputid3" class="col-sm-2 col-form-label login-text-l" >비밀번호</label>
+          <input type="password" class="form-control login-input" id="inputid3" name="user_pw" >
+       	  <div class="field-error" th:errors="*{user_pw}" >user_pw 오류</div>
+        </div>
+
+        <div class="container-fluid" style="text-align: right;">
+          <br>
+          <div class="container-fluid" style="text-align: right;"> <!--글씨 좀 작게 그리고 오른쪽 정렬-->
+            <a th:href="@{/join/main}" class="etc-text shadow-sm" style="color: black">회원가입</a> 
+          </div> 
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div style="text-align: center;">
+          <button type="submit" class="btn btn-primary login-btn" >로그인</button>
+        </div>
+      </form>    
+    </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+
+a{
+    text-decoration: none;
+}
+a:visited { color:white; background-color: #ffce0b; }
+body{
+    background-color: whitesmoke;
+}
+
+.nav{
+	margin-top: 3%;
+    height: 120px;
+    background-color: #ffce0b;
+    border-radius: 10px;
+    
+}
+.nav-body{
+    margin: 0 auto;
+    text-align: center; 
+    line-height: 100px;
+}
+.nav-text{
+    font-size: 50px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    
+}
+th{
+    text-align: center;
+    width: 25%;
+    
+}
+table{
+    border:1px solid black
+}
+.my-button{
+    background-color: #6b6963; color: black;
+    width: 50%; 
+    height: 80%;
+    font-size: 100%;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    margin: 10px;
+    
+    
+    
+}
+.join-button{
+    background-color: #ffce0b; color: black;
+    width: 60%; 
+    height: 100%;
+    font-size: 25px;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    
+}
+.field-error{
+	color : red;
+	font-size: 15px;
+	font-family: 'Single Day', cursive;
+	text-align: center; 
+}

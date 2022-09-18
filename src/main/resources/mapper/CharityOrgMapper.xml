@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.mapper.CharityOrgMapper">
+	<select id="getCharityOrgInfo" resultType="com.sh.domain.CharityOrgDTO">
+		select * 
+		from charity_org_info 
+		where C_SYS_ID = #{c_sys_id}
+	</select>
+
+	<insert id="saveDonationInfo" parameterType="com.sh.domain.DonationInfoDTO">
+
+	INSERT INTO kbsc.c_board
+	(C_TITLE, C_CONTENTS, C_FIELD, ORG_NAME, C_SYS_ID)
+	VALUES(#{c_title}, #{c_contents}, #{c_field}, #{org_name}, #{c_sys_id})
+	
+	</insert>
+	
+	<select id="getDonationBoardList" resultType="com.sh.domain.DonationInfoDTO">
+		select * from c_board
+	</select>
+	
+	<select id="readDonationBoardInfo" resultType="com.sh.domain.DonationInfoDTO">
+		select * from c_board where c_board_num=#{c_board_num}
+	</select>
+	
+	<select id="getDonationTimes" resultType="Long">
+		select count(u_sys_id)
+		from co_donation_info
+		where c_board_num=#{c_board_num}
+	</select>
+	
+	<select id="getDonationAmountCash" resultType="Long">
+		select sum(amount_of_money)
+		from donation_payment_cash_org
+		where c_board_num=#{c_board_num}
+	</select>
+	
+	<select id="getDonationAmountPoint" resultType="Long">
+		select sum(amount_of_point)
+		from donation_payment_point_org
+		where c_board_num=#{c_board_num}
+	</select>
+	
+	
+	<select id="searchBoardList" resultType="com.sh.domain.DonationInfoDTO">
+		select * from c_board
+		<trim prefix="where(" suffix=")">
+			<choose>
+				<when test="searchCriteria == 'c_title'.toString()">
+					c_title like '%${searchWord}%'
+				</when>
+				<when test="searchCriteria == 'org_name'.toString()">
+					org_name like'%${searchWord}%'
+				</when>
+				<when test="searchCriteria == 'c_field_os'.toString()">
+					c_title like '%${searchWord}%' and c_field = "해외후원" and c_sys_id=#{sys_id}
+				</when>
+				<when test="searchCriteria == 'c_field_dm'.toString()">
+					c_title like '%${searchWord}%' and c_field = "국내후원" and c_sys_id=#{sys_id}
+				</when>
+				<when test="searchCriteria == 'c_field_co'.toString()">
+					c_title like '%${searchWord}%' and c_field = "코로나19 긴급구호" and c_sys_id=#{sys_id}
+				</when>
+				<when test="searchCriteria == 'c_field_af'.toString()">
+					c_title like '%${searchWord}%' and c_field = "아프가니스탄 긴급구호" and c_sys_id=#{sys_id}
+				</when>
+				<when test="searchCriteria == 'c_field_sr'.toString()">
+					c_title like '%${searchWord}%' and c_field = "시리아 긴급구호" and c_sys_id=#{sys_id}
+				</when>
+				<when test="searchCriteria == 'c_field_ea'.toString()">
+					c_title like '%${searchWord}%' and c_field = "동아프리카 긴급구호" and c_sys_id=#{sys_id}
+				</when>
+			</choose>
+		</trim>
+		
+	</select>	
+	
+</mapper>
