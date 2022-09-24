@@ -30,34 +30,19 @@ public interface DonationUserService {
 	
 	/*
 	 * 유저 기부 완료
-	 */
-	boolean saveDonationCompleteInfoUser(int c_board_num, String u_sys_id, String donationtype);
-	
-	/*
 	 * 단체 기부 완료
 	 */
-	boolean saveDonationCompleteInfoOrg(int c_board_num, String u_sys_id, String donationtype);
 	
 	/*
 	 * 기부 결제 정보 저장(insert)
 	 */
-	boolean saveDonationPaymentCashUser(DonationPaymentCashDTO paymentInfo, int c_board_num, String u_sys_id);
+	boolean saveDonationPaymentCash(DonationPaymentCashDTO paymentInfo, int c_board_num, String u_sys_id, String donationType);
 	
 	/*
 	 * 기부 결제정보 point 저장(insert)
 	 */
-	boolean saveDonationPaymentPointUser(DonationPaymentPointDTO paymentInfo, int c_board_num, String u_sys_id);
+	boolean saveDonationPaymentPoint(DonationPaymentPointDTO paymentInfo, int c_board_num, String u_sys_id, String donationType);
 
-	/*
-	 * 기부 결제 정보 저장(insert)
-	 */
-	boolean saveDonationPaymentCashOrg(DonationPaymentCashDTO paymentInfo, int c_board_num, String u_sys_id);
-	
-	/*
-	 * 기부 결제정보 point 저장(insert)
-	 */
-	boolean saveDonationPaymentPointOrg(DonationPaymentPointDTO paymentInfo, int c_board_num, String u_sys_id);
-	
 	/*
 	 * 내 잔여 포인트 확인(select)
 	 */

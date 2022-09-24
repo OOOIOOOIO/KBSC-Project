@@ -108,7 +108,9 @@ public class VolunteerUserServiceImpl implements VolunteerUserService {
 	}
 
 	@Override
-	public boolean saveApplyVolunteerInfo(VolunteerApplyFormDTO applyInfo, String u_sys_id) {
+	public boolean saveUserVolunteerInfo(VolunteerApplyFormDTO applyInfo, String u_sys_id) {
+		
+//		===================================== 봉사 신청 테이블
 		
 		int v_board_num = applyInfo.getV_board_num();
 		List<String> dateList = applyInfo.getV_date();
@@ -133,14 +135,9 @@ public class VolunteerUserServiceImpl implements VolunteerUserService {
 				return false;
 			}
 		}
-		
-		return true;
-		
-	}
 
-	@Override
-	public boolean saveCompleteVolunteerInfo(VolunteerApplyFormDTO applyInfo, String u_sys_id) {
-		int v_board_num = applyInfo.getV_board_num();
+//		============================ 봉사 완료 테이블
+		
 		
 		List<VolunteerUserCompleteDTO> volunteerCompleteInfoUser = mapper.getVolunteerBoardCompleteInfoUser(v_board_num, u_sys_id);
 		List<VolunteerOrgCompleteDTO> volunteerCompleteInfoOrg = mapper.getVolunteerBoardCompleteInfoOrg(v_board_num, u_sys_id);
@@ -157,12 +154,8 @@ public class VolunteerUserServiceImpl implements VolunteerUserService {
 			}
 		}
 		
-		return true;
-	}
-
-	@Override
-	public boolean saveCompletVolunteerPointCertificate(VolunteerApplyFormDTO pcInfo, String u_sys_id) {
-		int v_board_num = pcInfo.getV_board_num();
+//		============================ 완료 후 인증서랑 포인트 테이블
+		
 		String certificateCode = UUID.randomUUID().toString();
 		int v_time = mapper.getVolunteerTime(v_board_num);
 
@@ -201,6 +194,8 @@ public class VolunteerUserServiceImpl implements VolunteerUserService {
 					
 					
 		}
+		
+		
 		return true;
 	}
 

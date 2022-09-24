@@ -30,6 +30,7 @@ import org.springframework.web.util.UriUtils;
 import com.sh.domain.CharityFileDTO;
 import com.sh.domain.CharityOrgDTO;
 import com.sh.domain.DonationInfoDTO;
+import com.sh.domain.UserDTO;
 import com.sh.domain.VolunteerFileDTO;
 import com.sh.service.CharityOrgService;
 import com.sh.service.FileService;
@@ -65,7 +66,7 @@ public class CharityOrgController {
 		Long volunteerHours = homeService.getTotalVolunteerHours();
 		Long donationPoint = homeService.getTotalDonationAmountByPoint();
 		Long donationCash = homeService.getTotalDonationAmountByCash();
-		
+
 		model.addAttribute("volunteerPoint", volunteerPoint);
 		model.addAttribute("volunteerTimes", volunteerTimes);
 		model.addAttribute("donationTimes", donationTimes);

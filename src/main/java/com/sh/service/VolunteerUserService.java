@@ -48,20 +48,11 @@ public interface VolunteerUserService {
 	
 	/*
 	 * 봉사신청 완료 테이블(insert) : 봉사단체가 수락 누르면.
-	 */
-	boolean saveApplyVolunteerInfo(VolunteerApplyFormDTO applyInfo, String u_sys_id);
-
-	/*
 	 * 봉사신청 완료 테이블(insert) : 봉사단체가 수락 누르면.
-	 */
-	boolean saveCompleteVolunteerInfo(VolunteerApplyFormDTO applyInfo, String u_sys_id);
-	
-	
-	/*
 	 * 봉사 포인트, 인증서 (insert)
 	 */
-	boolean saveCompletVolunteerPointCertificate(VolunteerApplyFormDTO applyInfo, String u_sys_id);
-	
+	boolean saveUserVolunteerInfo(VolunteerApplyFormDTO applyInfo, String u_sys_id);
+
 	/*
 	 * 검색
 	 */

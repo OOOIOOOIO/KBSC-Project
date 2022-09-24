@@ -70,29 +70,33 @@ public class DonationUserServiceImpl implements DonationUserService{
 	}
 
 
+	
 	@Override
-	public boolean saveDonationCompleteInfoUser(int c_board_num, String u_sys_id, String donationtype) {
+	public boolean saveDonationPaymentCash(DonationPaymentCashDTO paymentInfo, int c_board_num, String u_sys_id, String donationType) {
 		
+//		==================== 기부 완료 유저 
 		// 보드 정보
 		DonationCompleteUserDTO user = mapper.getSomeBoardInfoUser(c_board_num);
 		user.setU_sys_id(u_sys_id);
-		user.setDonation_type(donationtype);
+		user.setDonation_type(donationType);
 		
-		return 1 == mapper.saveDonationCompleteInfoUser(user);
-	}
-
-	@Override
-	public boolean saveDonationCompleteInfoOrg(int c_board_num, String u_sys_id, String donationtype) {
+		int userInfoResult = mapper.saveDonationCompleteInfoUser(user);
+		
+//		==================== 기부 완료 단체
 		
 		DonationCompleteOrgDTO org = mapper.getSomeBoardInfoOrg(c_board_num);
 		org.setU_sys_id(u_sys_id);
-		org.setDonation_type(donationtype);
+		org.setDonation_type(donationType);
 		
-		return 1 == mapper.saveDonationCompleteInfoOrg(org);
-	}
-	
-	@Override
-	public boolean saveDonationPaymentCashUser(DonationPaymentCashDTO paymentInfo, int c_board_num, String u_sys_id) {
+		int orgInfoResult = mapper.saveDonationCompleteInfoOrg(org);
+		
+		if(userInfoResult != orgInfoResult) {
+			return false;
+		}
+		
+		
+//		====================== 결제정보 유저
+		
 		DonationCompleteInfoDTO completeInfo = mapper.getCompleteInfo(u_sys_id, c_board_num);
 		
 		int cu_num = completeInfo.getCo_num();
@@ -105,45 +109,48 @@ public class DonationUserServiceImpl implements DonationUserService{
 		paymentInfo.setCo_num(co_num);
 		paymentInfo.setC_sys_id(c_sys_id);
 		
-		return 1 == mapper.saveDonationPaymentCashUser(paymentInfo);
-	}
+		int userResult = mapper.saveDonationPaymentCashUser(paymentInfo);
 
-	@Override
-	public boolean saveDonationPaymentPointUser(DonationPaymentPointDTO paymentInfo, int c_board_num, String u_sys_id) {
-		DonationCompleteInfoDTO completeInfo = mapper.getCompleteInfo(u_sys_id, c_board_num);
+		// =================== 결제 정보 단체
 		
-		int cu_num = completeInfo.getCo_num();
-		int co_num = completeInfo.getCu_num();
-		String c_sys_id = completeInfo.getC_sys_id();
-		
-		paymentInfo.setC_board_num(c_board_num);
-		paymentInfo.setU_sys_id(u_sys_id);
-		paymentInfo.setCu_num(cu_num);
-		paymentInfo.setCo_num(co_num);
-		paymentInfo.setC_sys_id(c_sys_id);
+		int orgResult = mapper.saveDonationPaymentCashOrg(paymentInfo);
 		
 		
-		return 1 == mapper.saveDonationPaymentPointUser(paymentInfo);
-	}
-	@Override
-	public boolean saveDonationPaymentCashOrg(DonationPaymentCashDTO paymentInfo, int c_board_num, String u_sys_id) {
-		DonationCompleteInfoDTO completeInfo = mapper.getCompleteInfo(u_sys_id, c_board_num);
 		
-		int cu_num = completeInfo.getCo_num();
-		int co_num = completeInfo.getCu_num();
-		String c_sys_id = completeInfo.getC_sys_id();
+		if(userResult != orgResult) {
+			return false;
+		}
 		
-		paymentInfo.setC_board_num(c_board_num);
-		paymentInfo.setU_sys_id(u_sys_id);
-		paymentInfo.setCu_num(cu_num);
-		paymentInfo.setCo_num(co_num);
-		paymentInfo.setC_sys_id(c_sys_id);
-		
-		return 1 == mapper.saveDonationPaymentCashOrg(paymentInfo);
+		return true;
 	}
 	
+	
+	
 	@Override
-	public boolean saveDonationPaymentPointOrg(DonationPaymentPointDTO paymentInfo, int c_board_num, String u_sys_id) {
+	public boolean saveDonationPaymentPoint(DonationPaymentPointDTO paymentInfo, int c_board_num, String u_sys_id, String donationType) {
+		
+//		==================== 기부완료 유저
+		// 보드 정보
+		DonationCompleteUserDTO user = mapper.getSomeBoardInfoUser(c_board_num);
+		user.setU_sys_id(u_sys_id);
+		user.setDonation_type(donationType);
+		
+		int userInfoResult = mapper.saveDonationCompleteInfoUser(user);
+//		==================== 기부완료 단체
+		
+		DonationCompleteOrgDTO org = mapper.getSomeBoardInfoOrg(c_board_num);
+		org.setU_sys_id(u_sys_id);
+		org.setDonation_type(donationType);
+		
+		int orgInfoResult = mapper.saveDonationCompleteInfoOrg(org);
+		
+		if(userInfoResult != orgInfoResult) {
+			return false;
+		}
+		
+		
+//		================== 결제정보 유저
+		
 		DonationCompleteInfoDTO completeInfo = mapper.getCompleteInfo(u_sys_id, c_board_num);
 		
 		int cu_num = completeInfo.getCo_num();
@@ -157,7 +164,17 @@ public class DonationUserServiceImpl implements DonationUserService{
 		paymentInfo.setC_sys_id(c_sys_id);
 		
 		
-		return 1 == mapper.saveDonationPaymentPointOrg(paymentInfo);
+		int userResult = mapper.saveDonationPaymentPointUser(paymentInfo);
+		
+//		================== 결제정보 단체
+		
+		int orgResult = mapper.saveDonationPaymentPointOrg(paymentInfo);
+		
+		if(userResult != orgResult) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override

@@ -187,32 +187,21 @@ public class VolunteerUserController {
 		log.info("========== VOLUNTEER APPLY  ===========");
 		log.info("=============== "+applyInfo.toString() + " ================");
 		
-		
-		// 여기서 봉사 신청 테이블 db 저장
-		if(service.saveApplyVolunteerInfo(applyInfo, u_sys_id)) {
+		/*
+		 * 봉사신청  
+		 * 봉사완료 
+		 * 포인트, 인증서 (insert)
+		 */
+				
+		if(service.saveUserVolunteerInfo(applyInfo, u_sys_id)) {
 			
-			log.info("========== VOLUNTEER APPLY SUCCESS ===========");
+			log.info("============ SAVE POINT CERTIFICATE SUCCESS ===========");
 			
-			if(service.saveCompleteVolunteerInfo(applyInfo, u_sys_id)) {
-				
-				log.info("========== VOLUNTEER COMPETE SUCCESS ===========");
-				
-				if(service.saveCompletVolunteerPointCertificate(applyInfo, u_sys_id)) {
-					
-					log.info("============ SAVE POINT CERTIFICATE SUCCESS ===========");
-					
-					return "redirect:/volunteerUser/completeConfirm";
-				}
-				else {
-					
-					log.error("========== [ERROR] VOLUNTEER COMPLETE FAIL ===========");
-				}
-			}
-			else {
-				
-				log.error("========== [ERROR] VOLUNTEER COMPLETE FAIL ===========");
-				
-			}
+			return "redirect:/volunteerUser/completeConfirm";
+		}
+		else {
+			
+			log.error("========== [ERROR] VOLUNTEER COMPLETE FAIL ===========");
 		}
 		
 		

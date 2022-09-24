@@ -208,35 +208,22 @@ public class DonationUserController {
 		
 		log.info("============= COMPLETE CASH PAGE ===============");
 		
-		if(service.saveDonationCompleteInfoUser(c_board_num, u_sys_id, DonationType.CASH)) {
-			log.info("=============  SAVE DONATION COMPLETE USER SUCCESS - CASH ===============");
-			
-			if(service.saveDonationCompleteInfoOrg(c_board_num, u_sys_id, DonationType.CASH)) {
-				log.info("=============  SAVE DONATION COMPLETE ORG SUCCESS - CASH ===============");
-				
-				if(service.saveDonationPaymentCashUser(paymentInfo, c_board_num, u_sys_id)) {
-					log.info("=============  SAVE DONATION PAYMENT USER SUCCESS - CASH ===============");
+		// 
 					
-					if(service.saveDonationPaymentCashOrg(paymentInfo, c_board_num, u_sys_id)) {
-						log.info("=============  SAVE DONATION PAYMENT ORG SUCCESS - CASH ===============");
-						return "redirect:/donationUser/completeInfo-cash";
-					}
-					else {
-						log.error("============[ERROR] SAVE DONATION COMPLETE INFO ORG ERROR - CASH ============");
-					}
-				}
-				else {
-					log.error("============[ERROR] SAVE DONATION COMPLETE INFO USER ERROR - CASH ============");
-				}
-			}
-			else {
-				log.error("============[ERROR] SAVE DONATION COMPLETE INFO ORG ERROR - CASH ============");
-			}
+		if(service.saveDonationPaymentCash(paymentInfo, c_board_num, u_sys_id, DonationType.CASH)) {
+			log.info("=============  SAVE DONATION PAYMENT ORG SUCCESS - CASH ===============");
+			
+			return "redirect:/donationUser/completeInfo-cash";
 		}
+		else {
+			log.error("============[ERROR] SAVE DONATION COMPLETE INFO ORG ERROR - CASH ============");
+		}
+		
 		
 		log.error("============[ERROR] SAVE DONATION PAYMENT ERROR - CASH============");
 		
 		redirect.addFlashAttribute("dbError", "기부에 실패하였습니다. 다시 시도해 주세요.");
+		
 		return "redirect:/donationUser/payment-cash/"+c_board_num;
 	}
 	
@@ -271,38 +258,20 @@ public class DonationUserController {
 		
 		log.info("============= COMPLETE POINT PAGE===============");
 		
-		if(service.saveDonationCompleteInfoUser(c_board_num, u_sys_id, DonationType.POINT)) {
-			log.info("=============  SAVE DONATION COMPLETE USER SUCCESS - POINT ===============");
-		
-			if(service.saveDonationCompleteInfoOrg(c_board_num, u_sys_id, DonationType.POINT)) {
-				log.info("=============  SAVE DONATION COMPLETE ORG SUCCESS - POINT ===============");
-				
-					if(service.saveDonationPaymentPointUser(paymentInfo, c_board_num, u_sys_id)) {
-						log.info("=============  SAVE DONATION PAYMENT USER SUCCESS - POINT ===============");
-						
-						if(service.saveDonationPaymentPointOrg(paymentInfo, c_board_num, u_sys_id)) {
-							log.info("=============  SAVE DONATION PAYMENT ORG SUCCESS - POINT ===============");
-							return "redirect:/donationUser/completeInfo-point";
-						}
-						else {
-							log.error("============[ERROR] SAVE DONATION COMPLETE INFO ORG ERROR - POINT ============");
-						}
-					}
-					else {
-						log.error("============[ERROR] SAVE DONATION COMPLETE INFO USER ERROR - POINT ============");
-					}
-			}
-			else {
-				log.error("============[ERROR] SAVE DONATION COMPLETE INFO ORG ERROR - POINT ============");
-			}
-			
+		if(service.saveDonationPaymentPoint(paymentInfo, c_board_num, u_sys_id, DonationType.POINT)) {
+			log.info("=============  SAVE DONATION PAYMENT ORG SUCCESS - POINT ===============");
+			return "redirect:/donationUser/completeInfo-point";
 		}
-		
+		else {
+			log.error("============[ERROR] SAVE DONATION COMPLETE INFO ORG ERROR - POINT ============");
+		}
+			
 		
 		log.error("============[ERROR] SAVE DONATION PAYMENT ERROR - POINT============");
 		
-		redirect.addFlashAttribute("dbFail", "dbFail");
 		// redierct해서 binding 에러 정보는 없어짐
+		redirect.addFlashAttribute("dbFail", "dbFail");
+		
 		return "redirect:/donationUser/payment-point/"+c_board_num;
 	}
 
