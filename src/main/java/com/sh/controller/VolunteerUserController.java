@@ -190,7 +190,7 @@ public class VolunteerUserController {
 		/*
 		 * 봉사신청  
 		 * 봉사완료 
-		 * 포인트, 인증서 (insert)
+		 * 포인트, 인증서 저장
 		 */
 				
 		if(service.saveUserVolunteerInfo(applyInfo, u_sys_id)) {

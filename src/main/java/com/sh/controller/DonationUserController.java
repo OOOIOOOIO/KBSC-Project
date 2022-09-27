@@ -208,7 +208,9 @@ public class DonationUserController {
 		
 		log.info("============= COMPLETE CASH PAGE ===============");
 		
-		// 
+		/*
+		 * 기부 완료 및 결제정보 저장
+		 */
 					
 		if(service.saveDonationPaymentCash(paymentInfo, c_board_num, u_sys_id, DonationType.CASH)) {
 			log.info("=============  SAVE DONATION PAYMENT ORG SUCCESS - CASH ===============");

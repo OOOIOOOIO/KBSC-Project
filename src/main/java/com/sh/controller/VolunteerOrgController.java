@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -75,6 +76,61 @@ public class VolunteerOrgController {
 		
 		return "home/voOrgHome";
 	}
+	
+	/*
+	 * 올린 봉사 리스트 보기
+	 */
+	@GetMapping("list")
+	public String list(Model model) {
+		
+		log.info("=========== BOARD LIST PAGE ===========");
+		
+		List<VolunteerInfoDTO> list = service.getVolunteerBoardList();
+		
+		model.addAttribute("vList", list);
+		
+		
+		return "volunteerOrg/volunteer-org-list";
+	}
+	
+	
+	/*
+	 * 봉사목록을 클릭해서 정보 보는 페이지
+	 * 여기에 수정 삭제가 있어야지?
+	 * 수정 /modify/{board_num}
+	 * 수정완료 /{board_num}
+	 * 삭제 /{board_num}
+	 */
+	@GetMapping("/information/{v_board_num}")
+	public String information(@PathVariable("v_board_num") int v_board_num,
+							Model model,
+							HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		VolunteerOrgDTO userInfo = (VolunteerOrgDTO)session.getAttribute(SessionConst.VOLUNTEER_ORG_USER);
+		String v_sys_id = userInfo.getV_sys_id();
+		
+		// 봉사단체 정보 가져오기
+		VolunteerInfoDTO vBInfo = service.readVolunteerBoardInfo(v_board_num);
+		VolunteerOrgDTO vOInfo = service.getVolunteerOrgInfo(v_sys_id);
+		
+		
+		model.addAttribute("vBInfo", vBInfo);
+		model.addAttribute("vOInfo", vOInfo);
+		model.addAttribute("v_board_num", v_board_num);
+		
+		// file
+		VolunteerFileDTO fileInfo= fileService.getVolunteerFile(v_board_num);
+		if(fileInfo != null) {
+			model.addAttribute("fileInfo", fileInfo);
+			log.info("======== FILE INFO : "+ fileInfo.toString() + "=========");
+			
+		}
+		
+		log.info("========== READ VOLUNTEER INFO ========");
+		
+		return "volunteerOrg/volunteer-org-information";
+	}
+	
 
 	/*
 	 * 봉사 공고 등록
@@ -93,17 +149,18 @@ public class VolunteerOrgController {
 		model.addAttribute("vOInfo", vOInfo);
 		
 		log.info("=========== REGIST PAGE ===========");
-		log.info(vOInfo.toString());
 		
 		return "volunteerOrg/volunteer-org-regist";
 	}
 	
 	/*
 	 * 봉사 공고 등록
+	 * getter로 modelAttribute에 넣고
+	 * RequestParam으로 파라미터 가져오기
 	 */
 	@PostMapping("/regist")
 	public String registInfo(@ModelAttribute VolunteerInfoDTO volunteerInfo,
-							@RequestParam MultipartFile file,
+							@RequestParam MultipartFile file, 
 							HttpServletRequest request) throws IllegalStateException, IOException {
 		
 		HttpSession session = request.getSession(false);
@@ -112,7 +169,7 @@ public class VolunteerOrgController {
 		String org_name = userInfo.getOrg_name();
 		volunteerInfo.setOrg_name(org_name);
 		
-		
+		//게시물
 		if(!service.saveVolunteerInfo(v_sys_id, volunteerInfo)) {
 			
 			log.error("============== [ERROR] BOARD REGIST FAIL =============");
@@ -131,50 +188,12 @@ public class VolunteerOrgController {
 	}
 	
 	/*
-	 * 올린 봉사 리스트 보기
+	 * 수정 사실 information/{}이랑 같은데 흐음 어떻게 못하나...
 	 */
-	@GetMapping("list")
-	public String list(Model model) {
-		
-		log.info("=========== BOARD LIST PAGE ===========");
-		
-		List<VolunteerInfoDTO> list = service.getVolunteerBoardList();
-		
-		model.addAttribute("vList", list);
-		
-		
-		return "volunteerOrg/volunteer-org-list";
-	}
-	
-	/*
-	 * 검색 후 ajax로 다시 뿌려주
-	 */
-	@PostMapping(value ="/search",
-			produces={
-					MediaType.APPLICATION_JSON_UTF8_VALUE,
-					MediaType.APPLICATION_XML_VALUE
-			})
-	@ResponseBody
-	public ResponseEntity<List<VolunteerInfoDTO>> search(@RequestBody OrgSearchFormDTO searchForm, HttpServletRequest request){
-		HttpSession session = request.getSession(false);
-		VolunteerOrgDTO userInfo = (VolunteerOrgDTO)session.getAttribute(SessionConst.VOLUNTEER_ORG_USER);
-		String v_sys_id = userInfo.getV_sys_id();
-		searchForm.setSys_id(v_sys_id);
-		
-		List<VolunteerInfoDTO> searchList = service.searchBoardList(searchForm);
-		
-		log.info(searchForm.toString());
-		return  new ResponseEntity<List<VolunteerInfoDTO>>(searchList, HttpStatus.OK);
-	}	
-	
-	
-	/*
-	 * 봉사목록을 클릭해서 정보 보는 페이지
-	 */
-	@GetMapping("/information/{v_board_num}")
-	public String information(@PathVariable("v_board_num") int v_board_num,
-							Model model,
-							HttpServletRequest request) {
+	@GetMapping("/modify/{v_board_num}")
+	public String modify(@PathVariable("v_board_num") int v_board_num,
+						Model model,
+						HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		VolunteerOrgDTO userInfo = (VolunteerOrgDTO)session.getAttribute(SessionConst.VOLUNTEER_ORG_USER);
 		String v_sys_id = userInfo.getV_sys_id();
@@ -186,23 +205,67 @@ public class VolunteerOrgController {
 		
 		model.addAttribute("vBInfo", vBInfo);
 		model.addAttribute("vOInfo", vOInfo);
-		
+		model.addAttribute("v_board_num", v_board_num);
 		
 		// file
 		VolunteerFileDTO fileInfo= fileService.getVolunteerFile(v_board_num);
 		if(fileInfo != null) {
-			model.addAttribute("fileInfo", fileInfo);
-			log.info("======== FILE INFO : "+ fileInfo.toString() + "=========");
-			
+		model.addAttribute("fileInfo", fileInfo);
+		log.info("======== FILE INFO : "+ fileInfo.toString() + "=========");
+		
 		}
 		
-		log.info("========== READ VOLUNTEER INFO ========");
-		log.info("======== BOARD NUM : "+ v_board_num + " =========");
-		log.info("======== BOARD INFO : "+ vBInfo.toString() + " =========");
-		log.info("======== VOLUNTEER ORG INFO : "+ vOInfo.toString() + " =========");
+		log.info("========== MODIFY VOLUNTEER INFO ========");
 		
-		return "volunteerOrg/volunteer-org-information";
+		return "volunteerOrg/volunteer-org-modify";
 	}
+	
+	/*
+	 * 수정 완료
+	 */
+	@PostMapping("/modify/{v_board_num}")
+	public String modifyComplete(@ModelAttribute VolunteerInfoDTO volunteerInfo,
+							@RequestParam MultipartFile file,
+							@PathVariable("v_board_num") int v_board_num,
+							HttpServletRequest request)  {
+		
+		HttpSession session = request.getSession(false);
+		VolunteerOrgDTO userInfo = (VolunteerOrgDTO)session.getAttribute(SessionConst.VOLUNTEER_ORG_USER);
+		String v_sys_id = userInfo.getV_sys_id();
+		String org_name = userInfo.getOrg_name();
+		volunteerInfo.setOrg_name(org_name);
+		volunteerInfo.setV_board_num(v_board_num);
+		
+		if(!service.saveVolunteerInfo(v_sys_id, volunteerInfo)) {
+			
+			log.error("============== [ERROR] BOARD REGIST FAIL =============");
+			
+			return "redirect:/volunteerOrg/regist";
+		}
+		
+		//file 저장
+		try {
+			if(fileService.saveVolunteerFile(file, v_sys_id)) {
+				log.info("==== FILE UPLOAD : {} ===", file.getOriginalFilename());
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+			return "예외처리 해버리자";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "예외처리 해버리자";
+		}
+		
+		log.info("============= BOARD REGIST SUCCESS =============");
+		
+		return "redirect:/volunteerOrg/home";
+	}
+	
+	
+	/*
+	 * 삭제
+	 */
+	
 	
 	/*
 	 * file 다운로드
@@ -230,5 +293,26 @@ public class VolunteerOrgController {
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition).body(urlResource);
 		
 	}
+	
+	/*
+	 * 검색 후 ajax로 다시 뿌려주
+	 */
+	@PostMapping(value ="/search",
+			produces={
+					MediaType.APPLICATION_JSON_UTF8_VALUE,
+					MediaType.APPLICATION_XML_VALUE
+			})
+	@ResponseBody
+	public ResponseEntity<List<VolunteerInfoDTO>> search(@RequestBody OrgSearchFormDTO searchForm, HttpServletRequest request){
+		HttpSession session = request.getSession(false);
+		VolunteerOrgDTO userInfo = (VolunteerOrgDTO)session.getAttribute(SessionConst.VOLUNTEER_ORG_USER);
+		String v_sys_id = userInfo.getV_sys_id();
+		searchForm.setSys_id(v_sys_id);
+		
+		List<VolunteerInfoDTO> searchList = service.searchBoardList(searchForm);
+		
+		log.info(searchForm.toString());
+		return  new ResponseEntity<List<VolunteerInfoDTO>>(searchList, HttpStatus.OK);
+	}	
 	
 }

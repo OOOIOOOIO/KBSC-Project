@@ -25,7 +25,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class DonationUserServiceImpl implements DonationUserService{
@@ -72,6 +71,7 @@ public class DonationUserServiceImpl implements DonationUserService{
 
 	
 	@Override
+	@Transactional
 	public boolean saveDonationPaymentCash(DonationPaymentCashDTO paymentInfo, int c_board_num, String u_sys_id, String donationType) {
 		
 //		==================== 기부 완료 유저 
@@ -127,6 +127,7 @@ public class DonationUserServiceImpl implements DonationUserService{
 	
 	
 	@Override
+	@Transactional
 	public boolean saveDonationPaymentPoint(DonationPaymentPointDTO paymentInfo, int c_board_num, String u_sys_id, String donationType) {
 		
 //		==================== 기부완료 유저
@@ -234,7 +235,6 @@ public class DonationUserServiceImpl implements DonationUserService{
 		String credit_card_number = paymentInfo.getCredit_card_number();
 		String credit_card_company = paymentInfo.getCredit_card_company();
 		String credit_card_valid_date = paymentInfo.getCredit_card_valid_date();
-		String credit_card_owner_name = paymentInfo.getCredit_card_owner_name();
 		String credit_card_owner_birth = paymentInfo.getCredit_card_owner_birth();
 		
 		log.info(paymentInfo.toString());
@@ -244,19 +244,15 @@ public class DonationUserServiceImpl implements DonationUserService{
 			result = false;
 		}
 		else if(ObjectUtils.isEmpty(credit_card_number) || !Pattern.matches("(\\d{16})", credit_card_number)) {
-			log.info("1");
 			result = false;
 		}
 		else if(ObjectUtils.isEmpty(credit_card_company)) {
-			log.info("2");
 			result = false;
 		}
 		else if(ObjectUtils.isEmpty(credit_card_valid_date) || !Pattern.matches("(0[1-9]|1[012])/(2[0-9]|3[0-9])", credit_card_valid_date)) {
-			log.info("3");
 			result = false;
 		}
 		else if(ObjectUtils.isEmpty(credit_card_owner_birth) || !Pattern.matches("^(19[0-9][0-9]|20\\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$", credit_card_owner_birth)) {
-			log.info("5");
 			result = false;
 		}
 		

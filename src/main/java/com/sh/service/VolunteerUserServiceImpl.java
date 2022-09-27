@@ -31,7 +31,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class VolunteerUserServiceImpl implements VolunteerUserService {
@@ -72,12 +71,10 @@ public class VolunteerUserServiceImpl implements VolunteerUserService {
 			
 			if(r_num > applyNum) {
 				avNum.add(r_num - applyNum);
-				
 			}
 			else {
 				avNum.add(0);
 			}
-			
 		}
 		
 		return avNum;
@@ -108,6 +105,7 @@ public class VolunteerUserServiceImpl implements VolunteerUserService {
 	}
 
 	@Override
+	@Transactional
 	public boolean saveUserVolunteerInfo(VolunteerApplyFormDTO applyInfo, String u_sys_id) {
 		
 //		===================================== 봉사 신청 테이블

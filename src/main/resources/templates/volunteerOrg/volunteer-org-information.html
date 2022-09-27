@@ -111,6 +111,14 @@
         <a th:href="@{/volunteerOrg/list}" class="btn btn-primary my-status-button shadow ">확인</a>
     </div>
     <br>
+    <div class="move" style="text-align: center;">
+        <a th:href="@{/volunteerOrg/modify/{v_board_num}(v_board_num=${v_board_num})}" class="btn btn-primary my-status-button shadow ">수정</a>
+    </div>
+    <br>
+    <div class="move" style="text-align: center;">
+        <a th:href="@{/volunteerOrg/delete}" class="btn btn-primary my-status-button shadow ">삭제</a>
+    </div>
+    <br>
     
 </body>
 </html>

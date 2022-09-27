@@ -30,7 +30,6 @@ import org.springframework.web.util.UriUtils;
 import com.sh.domain.CharityFileDTO;
 import com.sh.domain.CharityOrgDTO;
 import com.sh.domain.DonationInfoDTO;
-<<<<<<< HEAD
 import com.sh.domain.UserDTO;
 import com.sh.domain.VolunteerFileDTO;
 import com.sh.service.CharityOrgService;
@@ -43,42 +42,6 @@ import com.sh.webDomain.VolunteerSearchFormDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
-@RequiredArgsConstructor
-@RequestMapping("/charityOrg")
-@Slf4j
-public class CharityOrgController {
-	
-	private final CharityOrgService service;
-	private final HomeService homeService;
-	private final FileService fileService;
-	
-	/*
-	 * 봉사단체 홈
-	 */
-	@GetMapping("/home")
-	public String home(HttpServletRequest request, Model model) {
-		
-		log.info("========= CHARITY HOME =========");
-		
-		Long volunteerPoint = homeService.getVolunteerPoint();
-		Long volunteerTimes = homeService.getVolunteerTimes();
-		Long donationTimes = homeService.getDonationTimes();
-		Long volunteerHours = homeService.getTotalVolunteerHours();
-		Long donationPoint = homeService.getTotalDonationAmountByPoint();
-		Long donationCash = homeService.getTotalDonationAmountByCash();
-
-=======
-import com.sh.domain.VolunteerFileDTO;
-import com.sh.service.CharityOrgService;
-import com.sh.service.FileService;
-import com.sh.service.HomeService;
-import com.sh.webDomain.OrgSearchFormDTO;
-import com.sh.webDomain.SessionConst;
-import com.sh.webDomain.VolunteerSearchFormDTO;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
@@ -105,7 +68,6 @@ public class CharityOrgController {
 		Long donationPoint = homeService.getTotalDonationAmountByPoint();
 		Long donationCash = homeService.getTotalDonationAmountByCash();
 		
->>>>>>> branch 'origin' of https://github.com/OOOIOOOIO/KBSC-Share-sharing.git
 		model.addAttribute("volunteerPoint", volunteerPoint);
 		model.addAttribute("volunteerTimes", volunteerTimes);
 		model.addAttribute("donationTimes", donationTimes);
