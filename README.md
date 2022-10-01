@@ -2,9 +2,42 @@
 
 > 제 5회 KB국민은행 소프트웨어 경진대회
 
+## 단체들 FlowChart, ERD 추가하기
+## 신청하면 받을 수 있게 로직 바꾸기?
+## gma..
 
+<br>
+<img src="https://user-images.githubusercontent.com/74396651/193426867-3690ba2b-c2b6-49fd-92d7-2bd65dab54ae.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426868-609e1a2e-d26c-4b39-8fb4-318a7cf6b188.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426869-4922ae31-1783-4e4e-aef5-77ce5b6d316d.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426870-0533c932-ab54-4f4f-8cfd-dd6e89644b68.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426871-57c19ea6-e38e-42fc-ab3b-9fbac4d239e6.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426872-080a5a55-504b-4ffd-9e46-a0fb1cfd7b32.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426874-e1d11414-7c79-4996-9eba-79c2d2364b9a.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426876-5f293d76-4dbe-4ed2-924e-18345518b917.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426877-b631d0e2-f04e-41bb-a419-12d794b6353c.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426878-9cdc6950-76c8-48dc-908b-679eeab53e22.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426879-ed7fb06f-6f71-4955-9b42-f7e0c7e59424.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426882-39a8280b-8e0f-4979-87bd-6009c26fd119.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426883-c3405901-5a90-4141-b14b-3df482eddf8f.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426885-a19e847c-71dc-4d04-85a5-907f583f0cba.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426886-63571b66-1c7a-486a-bb3d-24f72c0e6143.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426889-7450f415-1d92-45d8-ab40-eb1f4cfa4e9a.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426890-6e308bee-98bd-46ca-8852-e9e5b551eb5b.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426891-72eb41b5-e61f-4353-a8f3-b321b2323816.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426892-beccce0f-fea5-48fa-aa2b-7593f9aac2e2.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426893-2904a536-ad44-4f7b-9778-60991a87d7a9.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426894-2c3b513a-cc00-4c04-8c52-5866954c8809.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426895-544197ee-3aeb-49b5-ad8e-3d17771b5599.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426896-d023f582-652d-4577-aef0-eea291aec97b.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426897-6a5e0986-d6ae-461f-8280-23a99c5f78d0.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426898-d22baa42-33aa-4775-90b3-ef2b7e71697f.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426899-a970a0dc-9b6d-449f-aaad-dde20a5a3076.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426900-00e041c4-e4d7-440b-88d6-9099aeaa818c.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426901-0c7fe7fd-ac47-4d2e-87ab-c6bb1efc2ee2.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426902-cea66b2e-9f8b-47d1-95e0-d3b34c0b6d81.JPG" width="70%" height="70%">
+<img src="https://user-images.githubusercontent.com/74396651/193426903-7dd3e562-00e5-4ca2-bdc3-2c4fdca3b901.JPG" width="70%" height="70%">
 
-===========여기에 ppt 캡쳐해서 넣기
 
 
 <br>
