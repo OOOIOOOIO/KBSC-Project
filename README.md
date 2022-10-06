@@ -1,10 +1,6 @@
-# KBSC-Share-sharing
+# KBSC 나눔을 나눠요 프로젝트
 
 > 제 5회 KB국민은행 소프트웨어 경진대회
-
-## 단체들 FlowChart, ERD 추가하기
-## 신청하면 받을 수 있게 로직 바꾸기?
-## gma..
 
 <br>
 <img src="https://user-images.githubusercontent.com/74396651/193426867-3690ba2b-c2b6-49fd-92d7-2bd65dab54ae.JPG" width="70%" height="70%">
