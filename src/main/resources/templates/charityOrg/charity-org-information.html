@@ -58,7 +58,7 @@
                 </tr>
             </table>
             <div class="card-body">
-            	<textarea name="c_contents" style="resize: vertical; width: 100%; height: 500px;" >[[${donationInfo.c_contents}]] </textarea>
+            	<textarea readonly name="c_contents" s	tyle="resize: vertical; width: 100%; height: 500px;" >[[${donationInfo.c_contents}]] </textarea>
             </div>
         </div>
     </div>
@@ -78,8 +78,51 @@
         <a href="#" th:href="@{/charityOrg/list}" class="btn btn-primary my-status-button shadow " >확인</a>
     </div>
     <br>
+    <div class="move" style="text-align: center;">
+        <a th:href="@{/charityOrg/modify/{c_board_num}(c_board_num=${c_board_num})}" class="btn btn-primary my-status-button shadow ">수정</a>
+    </div>
     <br>
+    <div class="move" style="text-align: center;">
+   		<input type="button" class="btn btn-primary my-status-button shadow" value="삭제" onclick="deleteBoard()">
+    </div>
     <br>
+    <script type="text/javascript" src="D:/polit/kbsc/front-workspace/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+   
+    function deleteBoard(){
+    	
+    	let v_board_num = [[${c_board_num}]];
+    	console.log(v_board_num);
+    	
+    	$.ajax(
+    		{
+    			type:"POST",
+    			url:"/charityOrg/delete",
+    			contentType:"application/json; charset=utf-8",
+    			data:JSON.stringify({"board_num" : v_board_num}),
+    			dataType:"Text",
+    			success:function(result, status, xhr){
+    				console.log("success ajax");
+    				alert("성공")
+    				console.log("result : " +result);
+					
+    				// 리스트로
+    				location.replace("/volunteerOrg/list");
+    				
+    			},
+    			error:function(e, status, xhr){
+    				console.log("ajax fail");
+    				alert("실패")
+    				console.log(e);
+    				// 다시 information으로
+    				location.replace("/volunteerOrg/information/"+v_board_num);
+    			}
+    		}		
+    	)
+    	
+    }    
+    </script>
+    
     
 </body>
 </html>

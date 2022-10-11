@@ -20,6 +20,23 @@
 		VALUES(#{v_title}, #{v_contents}, #{v_start_date}, #{v_end_date}, #{v_field}, #{v_place}, #{v_time}, #{v_type},	#{v_target}, #{r_start_date}, #{r_end_date}, #{r_num}, #{org_name}, #{act_type}, #{v_sys_id})
 	</insert>
 	
+	<update id="updateVolunteerInfo" parameterType="com.sh.domain.VolunteerInfoDTO">
+		UPDATE kbsc.v_board
+		
+		SET V_TITLE=#{v_title}, V_CONTENTS=#{v_contents}, V_START_DATE=#{v_start_date}, V_END_DATE=#{v_end_date}, 
+			V_FIELD=#{v_field}, V_PLACE=#{v_place}, V_TIME=#{v_time}, V_TYPE=#{v_type}, V_TARGET=#{v_target}, 
+			R_START_DATE=#{r_start_date}, R_END_DATE=#{r_end_date}, R_NUM=#{r_num}, ORG_NAME=#{org_name}, ACT_TYPE=#{act_type}, V_SYS_ID=#{v_sys_id}
+		
+		WHERE V_BOARD_NUM=#{v_board_num};
+		
+	</update>
+
+	<delete id="deleteVolunteerInfo" parameterType="_int">
+		DELETE FROM kbsc.v_board
+		WHERE V_BOARD_NUM=#{v_board_num};
+	
+	</delete>
+	
 	<select id="getVolunteerBoardList" resultType="com.sh.domain.VolunteerInfoDTO">
 		select * from v_board
 	</select>

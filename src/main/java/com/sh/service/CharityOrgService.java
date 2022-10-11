@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sh.domain.CharityOrgDTO;
 import com.sh.domain.DonationInfoDTO;
+import com.sh.domain.VolunteerInfoDTO;
 import com.sh.webDomain.OrgSearchFormDTO;
 import com.sh.webDomain.VolunteerSearchFormDTO;
 
@@ -18,6 +19,15 @@ public interface CharityOrgService {
 	 */
 	boolean saveDonationInfo(DonationInfoDTO donationInfo, String c_sys_id);
 	
+	/*
+	 * 기부 공고 수정
+	 */
+	boolean updateDonationInfo(DonationInfoDTO donationInfo, String c_sys_id);
+	
+	/*
+	 * 기부 공고 삭제
+	 */
+	boolean deleteDonationInfo(int c_board_num);
 	/*
 	 * 기부목록 가져오기
 	 */

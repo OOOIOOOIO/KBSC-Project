@@ -97,6 +97,22 @@ public class CharityOrgServiceImpl implements CharityOrgService {
 		
 		List<DonationInfoDTO> searchList = mapper.searchBoardList(searchInfo);
 		return searchList;
+	}
+
+	@Override
+	public boolean updateDonationInfo(DonationInfoDTO donationInfo, String c_sys_id) {
+		donationInfo.setC_sys_id(c_sys_id);
+		
+		int result = mapper.updateDonationInfo(donationInfo);
+		
+		return result == 1;
+	}
+
+	@Override
+	public boolean deleteDonationInfo(int c_board_num) {
+		
+		int result = mapper.deleteDonationInfo(c_board_num);
+		return result == 1;
 	}	
 
 

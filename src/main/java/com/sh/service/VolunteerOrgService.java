@@ -19,6 +19,17 @@ public interface VolunteerOrgService {
 	 */
 	boolean saveVolunteerInfo(String v_sys_id, VolunteerInfoDTO volunteerInfo);
 	
+	
+	/*
+	 * 봉사 공고 수정
+	 */
+	boolean updateVolunteerInfo(VolunteerInfoDTO volunteerInfo);
+	
+	/*
+	 * 봉사 공고 삭제
+	 */
+	boolean deleteVolunteerInfo(int v_board_num);
+	
 	/*
 	 * 봉사목록 가져오기
 	 */

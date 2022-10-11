@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>regist</title>
+    <title>modify</title>
     
     <!-- bootstrap css -->
     <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
@@ -26,11 +26,11 @@
     <br>
     
     <!-- 봉사 정보 -->
-    <form name="registForm" action="" th:action="@{/volunteerOrg/regist}" method="post" enctype="multipart/form-data"> 
+    <form name="registForm" action="" th:action="@{/volunteerOrg/modify}" method="post" enctype="multipart/form-data"> 
 		<div class="container">
 		    <div class="card">
 		        <div class="card-title" style="border-bottom: 1px solid gainsboro; font-size: 20px;">	
-		        	<input type="text" name="v_title" placeholder="봉사 공고 제목" style="width: 100%">
+		        	<input type="text" name="v_title" placeholder="봉사 공고 제목" style="width: 100%" th:value="${vBInfo.v_title}">
 		        </div>
 		        <table class="table">
 		            <tr>
@@ -42,33 +42,33 @@
 		            <tr> 
 		                <td class="td-l">봉사 기간</td>
 		                <td class="td-r">
-		                	시작일 <input type="date" min="0" name="v_start_date" placeholder="20220901"><br>
-		                	종료일 <input type="date" min="0" name="v_end_date" placeholder="20220910">
+		                	시작일 <input type="date" min="0" name="v_start_date" placeholder="20220901" th:value="${vBInfo.v_start_date}"><br>
+		                	종료일 <input type="date" min="0" name="v_end_date" placeholder="20220910" th:value="${vBInfo.v_end_date}">
 		                </td>
 		            </tr>
 		            <tr>
 		                <td class="td-l">모집 기간</td>
 		                <td class="td-r">
-		                	시작일 <input type="date" min="0" name="r_start_date" placeholder="20220801"><br>
-		                	종료일 <input type="date" min="0" name="r_end_date" placeholder="20220820">
+		                	시작일 <input type="date" min="0" name="r_start_date" placeholder="20220801" th:value="${vBInfo.r_start_date}"><br>
+		                	종료일 <input type="date" min="0" name="r_end_date" placeholder="20220820" th:value="${vBInfo.r_end_date}">
 		                </td>
 		            </tr>
 		            <tr>
 		                <td class="td-l">봉사 장소</td>
 		                <td class="td-r" >
-		                	<input type="text" name="v_place" placeholder="성호성호">
+		                	<input type="text" name="v_place" placeholder="성호성호" th:value="${vBInfo.v_place}">
 		                </td>
 		            </tr>
 		            <tr>
 		                <td class="td-l">봉사 시간</td>
 		                <td class="td-r" >
-				<input type="number" name="v_time" min="0" placeholder="3시간이면 '3'기입">
+				<input type="number" name="v_time" min="0" placeholder="3시간이면 '3'기입" th:value="${vBInfo.v_time}">
 			</td>
 		            </tr>
 		            <tr>
 		                <td class="td-l">모집 인원</td>
 		                <td class="td-r" >
-				<input type="number" name="r_num" min="0" placeholder="10명 모집일 경우 '10'기입">
+				<input type="number" name="r_num" min="0" placeholder="10명 모집일 경우 '10'기입" th:value="${vBInfo.r_num}">
 			</td>
 		            </tr>
 		            <tr>
@@ -145,7 +145,7 @@
 		            </tr>
 		        </table>
 		        <div class="card-body">
-					<textarea name="v_contents" style="resize: vertical; width: 100%; height: 500px;" placeholder="봉사 내용을 입력해주세요"></textarea>
+					<textarea name="v_contents" style="resize: vertical; width: 100%; height: 500px;" placeholder="봉사 내용을 입력해주세요" >[[${vBInfo.v_contents}]]</textarea>
 		        </div>
 		    </div>
 		</div>
@@ -170,7 +170,8 @@
 		</div>
 		<br>
 		<div class="move" style="text-align: center;">
-		    <input type="submit" class="btn btn-primary my-status-button shadow " value="봉사 공고 올리기">
+			<input hidden=true type="number" name="v_board_num" th:value="${v_board_num}">
+		    <input type="submit" class="btn btn-primary my-status-button shadow " value="수정 완료">
 		</div>
     </form>
     <br>

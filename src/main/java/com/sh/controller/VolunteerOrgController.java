@@ -37,6 +37,7 @@ import com.sh.service.HomeService;
 import com.sh.service.VolunteerOrgService;
 import com.sh.webDomain.OrgSearchFormDTO;
 import com.sh.webDomain.SessionConst;
+import com.sh.webDomain.DeleteBoardDTO;
 import com.sh.webDomain.DonationSearchFormDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -80,7 +81,7 @@ public class VolunteerOrgController {
 	/*
 	 * 올린 봉사 리스트 보기
 	 */
-	@GetMapping("list")
+	@GetMapping("/list")
 	public String list(Model model) {
 		
 		log.info("=========== BOARD LIST PAGE ===========");
@@ -207,14 +208,7 @@ public class VolunteerOrgController {
 		model.addAttribute("vOInfo", vOInfo);
 		model.addAttribute("v_board_num", v_board_num);
 		
-		// file
-		VolunteerFileDTO fileInfo= fileService.getVolunteerFile(v_board_num);
-		if(fileInfo != null) {
-		model.addAttribute("fileInfo", fileInfo);
-		log.info("======== FILE INFO : "+ fileInfo.toString() + "=========");
-		
-		}
-		
+		log.info("------"+ v_board_num);
 		log.info("========== MODIFY VOLUNTEER INFO ========");
 		
 		return "volunteerOrg/volunteer-org-modify";
@@ -223,49 +217,58 @@ public class VolunteerOrgController {
 	/*
 	 * 수정 완료
 	 */
-	@PostMapping("/modify/{v_board_num}")
+	@PostMapping("/modify")
 	public String modifyComplete(@ModelAttribute VolunteerInfoDTO volunteerInfo,
 							@RequestParam MultipartFile file,
-							@PathVariable("v_board_num") int v_board_num,
-							HttpServletRequest request)  {
+							HttpServletRequest request) throws IllegalStateException, IOException  {
 		
 		HttpSession session = request.getSession(false);
 		VolunteerOrgDTO userInfo = (VolunteerOrgDTO)session.getAttribute(SessionConst.VOLUNTEER_ORG_USER);
 		String v_sys_id = userInfo.getV_sys_id();
 		String org_name = userInfo.getOrg_name();
 		volunteerInfo.setOrg_name(org_name);
-		volunteerInfo.setV_board_num(v_board_num);
+		volunteerInfo.setV_sys_id(v_sys_id);
 		
-		if(!service.saveVolunteerInfo(v_sys_id, volunteerInfo)) {
-			
-			log.error("============== [ERROR] BOARD REGIST FAIL =============");
-			
-			return "redirect:/volunteerOrg/regist";
+		// 실패시
+		if(!service.updateVolunteerInfo(volunteerInfo)) {
+			log.info("======== UPDATE VOLUNTEER BOARD FAIL ========");
+			return "redirect:/volunteer/modify/"+volunteerInfo.getV_board_num();
 		}
 		
 		//file 저장
-		try {
-			if(fileService.saveVolunteerFile(file, v_sys_id)) {
-				log.info("==== FILE UPLOAD : {} ===", file.getOriginalFilename());
-			}
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-			return "예외처리 해버리자";
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "예외처리 해버리자";
+		if(fileService.saveVolunteerFile(file, v_sys_id)) {
+			log.info("==== FILE UPLOAD : {} ===", file.getOriginalFilename());
 		}
 		
-		log.info("============= BOARD REGIST SUCCESS =============");
+		log.info("============= BOARD UPDATE SUCCESS =============");
 		
-		return "redirect:/volunteerOrg/home";
+		return "redirect:/volunteerOrg/list";
 	}
 	
 	
 	/*
 	 * 삭제
 	 */
-	
+	@PostMapping(value = "/delete",
+				produces = {MediaType.APPLICATION_JSON_UTF8_VALUE,
+				MediaType.TEXT_PLAIN_VALUE})
+	@ResponseBody
+	public ResponseEntity<String> delete(@RequestBody DeleteBoardDTO board_num) {
+		
+		if(service.deleteVolunteerInfo(board_num.getBoard_num())) {
+			log.info("=========== DELETE SUCCESS ============");
+			log.info("---------------" + board_num.getBoard_num());
+			
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		}
+		
+		log.info("---------------" + board_num.getBoard_num());
+		log.info("=========== DELETE FAIL ============");
+		
+		return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		
+	}
 	
 	/*
 	 * file 다운로드
@@ -287,7 +290,7 @@ public class VolunteerOrgController {
 		log.info(urlResource.toString());
 		
 		String encodedOriginalFileName = UriUtils.encode(originalFileName, StandardCharsets.UTF_8);
-		String contentDisposition = "attachment; filename=\"" + encodedOriginalFileName + "\"";
+		String contentDisposition = "attachment; filSename=\"" + encodedOriginalFileName + "\"";
 		
 		
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition).body(urlResource);

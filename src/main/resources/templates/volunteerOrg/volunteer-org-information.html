@@ -9,7 +9,7 @@
     <!-- bootstrap css -->
     <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
     
-    <link rel="stylesheet" th:href="@{/css/volunteer/volunteer-information.css}" >
+    <link rel="stylesheet" th:href="@{/css/volunteer/volunteer-modify.css}" >
 
     <!-- google fonts-->
     <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
@@ -116,9 +116,46 @@
     </div>
     <br>
     <div class="move" style="text-align: center;">
-        <a th:href="@{/volunteerOrg/delete}" class="btn btn-primary my-status-button shadow ">삭제</a>
+   		<input type="button" class="btn btn-primary my-status-button shadow" value="삭제" onclick="deleteBoard()">
     </div>
     <br>
+    <script type="text/javascript" src="D:/polit/kbsc/front-workspace/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+    		
+    function deleteBoard(){
+    	
+    	let v_board_num = [[${v_board_num}]];
+    	console.log(v_board_num);
+    	
+    	$.ajax(
+    		{
+    			type:"POST",
+    			url:"/volunteerOrg/delete",
+    			contentType:"application/json; charset=utf-8",
+    			data:JSON.stringify({"board_num" : v_board_num}),
+    			dataType:"Text",
+    			success:function(result, status, xhr){
+    				console.log("success ajax");
+    				alert("성공")
+    				console.log("result : " +result);
+					
+    				// 리스트로
+    				location.replace("/volunteerOrg/list");
+    				
+    			},
+    			error:function(e, status, xhr){
+    				console.log("ajax fail");
+    				alert("실패")
+    				console.log(e);
+    				// 다시 information으로
+    				location.replace("/volunteerOrg/information/"+v_board_num);
+    			}
+    		}		
+    	)
+    	
+    }
     
+    
+    </script>
 </body>
 </html>

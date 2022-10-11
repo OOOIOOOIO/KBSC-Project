@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sh.domain.CharityOrgDTO;
 import com.sh.domain.DonationInfoDTO;
+import com.sh.domain.VolunteerInfoDTO;
 import com.sh.webDomain.OrgSearchFormDTO;
 import com.sh.webDomain.VolunteerSearchFormDTO;
 
@@ -24,6 +25,16 @@ public interface CharityOrgMapper {
 	 */
 	int saveDonationInfo(DonationInfoDTO donationInfo);
 	
+	/*
+	 * 기부 공고 수정
+	 */
+	int updateDonationInfo(DonationInfoDTO donationInfo);
+	
+	/*
+	 * 기부 공고 삭제
+	 */
+	int deleteDonationInfo(int v_board_num);	
+
 	/*
 	 * 기부목록 가져오기
 	 */

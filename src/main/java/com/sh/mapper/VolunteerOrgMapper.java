@@ -25,6 +25,16 @@ public interface VolunteerOrgMapper {
 	int saveVolunteerInfo(VolunteerInfoDTO volunteerInfo);
 	
 	/*
+	 * 봉사 공고 수정
+	 */
+	int updateVolunteerInfo(VolunteerInfoDTO volunteerInfo);
+	
+	/*
+	 * 봉사 공고 삭제
+	 */
+	int deleteVolunteerInfo(int v_board_num);
+	
+	/*
 	 * 봉사목록 가져오기
 	 */
 	List<VolunteerInfoDTO> getVolunteerBoardList();

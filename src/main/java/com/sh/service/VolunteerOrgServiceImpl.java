@@ -52,4 +52,20 @@ public class VolunteerOrgServiceImpl implements VolunteerOrgService {
 		return searchList;
 	}
 
+	@Override
+	public boolean updateVolunteerInfo(VolunteerInfoDTO volunteerInfo) {
+		
+		int result = mapper.updateVolunteerInfo(volunteerInfo);
+		
+		return result == 1;
+	}
+
+	@Override
+	public boolean deleteVolunteerInfo(int v_board_num) {
+		
+		int result = mapper.deleteVolunteerInfo(v_board_num);
+		
+		return result == 1;
+	}
+
 }

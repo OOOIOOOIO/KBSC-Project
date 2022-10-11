@@ -1,0 +1,53 @@
+a{
+    text-decoration: none;
+    /* color: black; */
+}
+.nav{
+	margin-top: 3%;
+    height: 120px;
+    background-color: #ffce0b;
+    border-radius: 10px;
+    
+}
+.nav-body{
+    margin: 0 auto;
+    text-align: center; 
+    line-height: 100px;
+}
+.nav-text{
+    font-size: 48px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    
+}
+.card{
+	font-family: 'Nanum Gothic Coding', monospace;
+	
+}
+.card-title{
+    font-family: 'Nanum Gothic Coding', monospace;
+    font-weight: bold;
+}
+.td-l{
+    border-right: 1px solid gainsboro;
+    font-family: 'Nanum Gothic Coding', monospace;
+    text-align: center;
+    font-weight: bold;
+}
+.td-r{
+    font-family: 'Nanum Gothic Coding', monospace;
+}
+
+.my-status-button{
+    background-color: #ffce0b; 
+    color: black;
+    width: 60%; 
+    height: 100%;
+    font-size: 25px;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Single Day', cursive;
+    
+    
+}
+

@@ -18,6 +18,23 @@
 	
 	</insert>
 	
+	<update id="updateDonationInfo" parameterType="com.sh.domain.DonationInfoDTO">
+	
+		UPDATE kbsc.c_board
+		SET C_TITLE=#{c_title}, C_CONTENTS=#{c_contents}, C_FIELD=#{c_field},
+		ORG_NAME=#{org_name}, C_SYS_ID=#{c_sys_id}
+		WHERE C_BOARD_NUM=#{c_board_num};
+	
+	
+	</update>
+	
+	<delete id="deleteDonationInfo">
+		DELETE FROM kbsc.c_board
+		WHERE C_BOARD_NUM=#{c_board_num};
+		
+	</delete>
+	
+	
 	<select id="getDonationBoardList" resultType="com.sh.domain.DonationInfoDTO">
 		select * from c_board
 	</select>
