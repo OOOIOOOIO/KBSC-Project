@@ -9,7 +9,6 @@ import com.sh.domain.VolunteerOrgDTO;
 import com.sh.webDomain.LoginFormDTO;
 
 @Mapper
-@Repository
 public interface LoginMapper {
 
 	/*

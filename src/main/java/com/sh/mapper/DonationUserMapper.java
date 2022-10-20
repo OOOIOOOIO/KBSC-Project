@@ -17,7 +17,6 @@ import com.sh.webDomain.DonationPaymentInfoDTO;
 import com.sh.webDomain.VolunteerSearchFormDTO;
 
 @Mapper
-@Repository
 public interface DonationUserMapper {
 	/*
 	 * 기부 목록 불러오기(select)

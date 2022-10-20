@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @SpringBootTest
+
 public class VolunteerUserMapperTest {
     Logger log = (Logger) LoggerFactory.getLogger(VolunteerUserMapperTest.class);
 	

@@ -12,7 +12,6 @@ import com.sh.webDomain.MyDonationInfoDTO;
 import com.sh.domain.VolunteerUserCompleteDTO;
 
 @Mapper
-@Repository
 public interface UserInfoMapper {
 
 	/*

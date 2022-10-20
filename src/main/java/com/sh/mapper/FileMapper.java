@@ -9,7 +9,6 @@ import com.sh.domain.VolunteerFileDTO;
 import com.sh.webDomain.FileSaveDTO;
 
 @Mapper
-@Repository
 public interface FileMapper {
 	
 	/*

@@ -18,7 +18,6 @@ import com.sh.webDomain.DonationSearchFormDTO;
 import com.sh.domain.VolunteerUserCompleteDTO;
 
 @Mapper
-@Repository
 public interface VolunteerUserMapper {
 	/*
 	 * 봉사목록 불러오기(select)

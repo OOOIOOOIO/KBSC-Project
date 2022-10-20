@@ -11,7 +11,6 @@ import com.sh.webDomain.OrgSearchFormDTO;
 import com.sh.webDomain.DonationSearchFormDTO;
 
 @Mapper
-@Repository
 public interface VolunteerOrgMapper {
 	
 	/*

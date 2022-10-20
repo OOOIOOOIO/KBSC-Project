@@ -8,7 +8,6 @@ import com.sh.domain.UserDTO;
 import com.sh.domain.VolunteerOrgDTO;
 
 @Mapper
-@Repository
 public interface JoinMapper {
 
 	/*
