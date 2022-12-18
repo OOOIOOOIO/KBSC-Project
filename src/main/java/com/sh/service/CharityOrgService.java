@@ -59,4 +59,5 @@ public interface CharityOrgService {
 	 */
 	List<DonationInfoDTO> searchBoardList(OrgSearchFormDTO searchInfo);	
 	
+	
 }
